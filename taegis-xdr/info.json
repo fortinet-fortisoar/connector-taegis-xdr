@@ -2,7 +2,7 @@
   "name": "taegis-xdr",
   "label": "Taegis XDR",
   "version": "1.0.0",
-  "description": "Secureworks Taegis™ XDR offers superior detection, unmatched response and an open platform built from the ground up to integrate market-leading technologies and deliver the highest ROI.",
+  "description": "Secureworks Taegis\u2122 XDR offers superior detection, unmatched response and an open platform built from the ground up to integrate market-leading technologies and deliver the highest ROI.",
   "publisher": "Fortinet",
   "cs_approved": false,
   "cs_compatible": true,
@@ -78,7 +78,7 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "value": "FROM alert WHERE severity \u003e\u003d 0.6 AND status \u003d \u0027OPEN\u0027 EARLIEST\u003d-1d",
+          "value": "FROM alert WHERE severity >= 0.6 AND status = 'OPEN' EARLIEST=-1d",
           "tooltip": "Specify the CQL query to utilize when searching for Alerts. By default, It Queries for Alerts which are in OPEN state, have severity High/Critical and were created within 1 Day.",
           "description": "Specify the CQL query to utilize when searching for Alerts. By default, It Queries for Alerts which are in OPEN state, have severity High/Critical and were created within 1 Day."
         },
@@ -108,13 +108,13 @@
         "TaegisXDR": {
           "Alerts": [
             {
-              "id": "c4f33b53-eaba-47ac-8272-199af0f7935b",
+              "id": "",
               "metadata": {
-                "title": "Test Alert",
-                "description": "This is a test alert",
-                "severity": 0.5
+                "title": "",
+                "description": "",
+                "severity": ""
               },
-              "url": "https://ctpx.secureworks.com/alerts/c4f33b53-eaba-47ac-8272-199af0f7935b"
+              "url": ""
             }
           ]
         }
@@ -294,16 +294,16 @@
           "Investigations": [
             {
               "archived_at": "",
-              "created_at": "2022-02-02T13:53:35Z",
-              "description": "Test Investigation",
-              "id": "c2e09554-833e-41a1-bc9d-8160aec0d70d",
+              "created_at": "",
+              "description": "",
+              "id": "",
               "key_findings": "",
-              "priority": 2,
+              "priority": "",
               "service_desk_id": "",
               "service_desk_type": "",
-              "status": "Open",
+              "status": "",
               "alerts2": [],
-              "url": "https://ctpx.secureworks.com/investigations/c2e09554-833e-41a1-bc9d-8160aec0d70d"
+              "url": ""
             }
           ]
         }
@@ -393,10 +393,10 @@
         "TaegisXDR": {
           "InvestigationAlerts": [
             {
-              "id": "c4f33b53-eaba-47ac-8272-199af0f7935b",
-              "description": "Test Alert",
-              "message": "This is a test alert",
-              "severity": 0.5
+              "id": "",
+              "description": "",
+              "message": "",
+              "severity": ""
             }
           ]
         }
@@ -448,23 +448,23 @@
       "output_schema": {
         "TaegisXDR": {
           "PlaybookExecution": {
-            "createdAt": "2022-01-01T13:51:24Z",
-            "executionTime": 1442,
-            "id": "UGxheWJvb2tFeGVjdXRpb246NGYwZDZiNGQtNWNiZS00NDkxLTg3YzYtMDZkNjkxYzMwMTg4",
+            "createdAt": "",
+            "executionTime": "",
+            "id": "",
             "inputs": {
               "alert": {
-                "message": "Test Alert"
+                "message": ""
               }
             },
             "instance": {
-              "name": "Test Alert Instance",
+              "name": "",
               "playbook": {
-                "name": "Taegis.PagerDutyAlertEvent"
+                "name": ""
               }
             },
-            "outputs": "d6b65662-c1da-4109-8553-c5664918c952",
-            "state": "Completed",
-            "updatedAt": "2022-01-01T13:51:31Z"
+            "outputs": "",
+            "state": "",
+            "updatedAt": ""
           }
         }
       },
@@ -494,11 +494,11 @@
         "TaegisXDR": {
           "Users": [
             {
-              "email": "myuser@email.com",
-              "family_name": "Smith",
-              "given_name": "John",
-              "status": "Registered",
-              "user_id": "auth0|123456"
+              "email": "",
+              "family_name": "",
+              "given_name": "",
+              "status": "",
+              "user_id": ""
             }
           ]
         }
@@ -538,7 +538,7 @@
       "output_schema": {
         "TaegisXDR": {
           "AssetIsolation": {
-            "id": "e43b545a-580a-4047-b489-4338c1cc4ba1"
+            "id": ""
           }
         }
       },
@@ -577,8 +577,8 @@
       "output_schema": {
         "TaegisXDR": {
           "AlertStatusUpdate": {
-            "reason": "feedback updates successfully applied",
-            "resolution_status": "SUCCESS"
+            "reason": "",
+            "resolution_status": ""
           }
         }
       },
@@ -629,7 +629,7 @@
       "output_schema": {
         "TaegisXDR": {
           "InvestigationUpdate": {
-            "id": "c2e09554-833e-41a1-bc9d-8160aec0d70d"
+            "id": ""
           }
         }
       },
