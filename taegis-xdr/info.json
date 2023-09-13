@@ -89,7 +89,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "value": "10",
+          "value": 10,
           "tooltip": "Specify the number of Alerts to be shown per page.",
           "description": "Specify the number of Alerts to be shown per page."
         },
@@ -99,7 +99,7 @@
           "type": "integer",
           "editable": true,
           "visible": true,
-          "value": "0",
+          "value": 0,
           "required": false,
           "description": "Specify the offset result set requested. If your query has 500 total_results and you want the last 100; use offset:400 limit:100"
         }
@@ -168,26 +168,16 @@
       },
       "parameters": [
         {
-          "name": "limit",
-          "title": "Limit",
-          "type": "integer",
+          "name": "filter_asset_state",
+          "title": "Filter Asset State",
+          "type": "select",
+          "value": "All",
+          "options": "All, Deleted, Active, Unhealthy",
           "editable": true,
           "visible": true,
           "required": false,
-          "value": "10",
-          "tooltip": "Specify the number of Assets to be shown per page.",
-          "description": "Specify the number of Assets to be shown per page."
-        },
-        {
-          "name": "offset",
-          "title": "Offset",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "value": "0",
-          "required": false,
-          "tooltip": "Specify the offset result set requested. If your query has 500 total_results and you want the last 100; use offset:400 limit:100",
-          "description": "Specify the offset result set requested. If your query has 500 total_results and you want the last 100; use offset:400 limit:100"
+          "tooltip": "Filters the fetched Assets on the basis of their states. By Default, All assets are fetched.",
+          "description": "Filters the fetched Assets on the basis of their states. By Default, All assets are fetched."
         },
         {
           "name": "order_by",
@@ -214,18 +204,6 @@
           "description": "Specify the order direction available for the order field of the AllAssets and SearchAssets queries. By Default, It searches in Ascending Order."
         },
         {
-          "name": "filter_asset_state",
-          "title": "Filter Asset State",
-          "type": "select",
-          "value": "All",
-          "options": "All, Deleted, Active, Unhealthy",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Filters the fetched Assets on the basis of their states. By Default, All assets are fetched.",
-          "description": "Filters the fetched Assets on the basis of their states. By Default, All assets are fetched."
-        },
-        {
           "name": "only_most_recent",
           "title": "Only Most Recent",
           "type": "checkbox",
@@ -235,6 +213,28 @@
           "required": false,
           "tooltip": "Check this if you want to fetch only the assets which are recently created.",
           "description": "Check this if you want to fetch only the assets which are recently created."
+        },
+        {
+          "name": "limit",
+          "title": "Limit",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of Assets to be shown per page.",
+          "description": "Specify the number of Assets to be shown per page."
+        },
+        {
+          "name": "offset",
+          "title": "Offset",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "value": 0,
+          "required": false,
+          "tooltip": "Specify the offset result set requested. If your query has 500 total_results and you want the last 100; use offset:400 limit:100",
+          "description": "Specify the offset result set requested. If your query has 500 total_results and you want the last 100; use offset:400 limit:100"
         }
       ]
     },
@@ -310,26 +310,27 @@
       },
       "parameters": [
         {
-          "name": "page",
-          "title": "Page",
-          "type": "integer",
+          "name": "filter_asset_state",
+          "title": "Filter Asset State",
+          "type": "select",
+          "value": "All",
+          "options": "All, Deleted, Active, Unhealthy",
           "editable": true,
           "visible": true,
           "required": false,
-          "value": "1",
-          "tooltip": "Specify the page number which you want to be fetched.",
-          "description": "Specify the page number which you want to be fetched."
+          "tooltip": "Filters the fetched Assets on the basis of their states. By Default, All assets are fetched.",
+          "description": "Filters the fetched Assets on the basis of their states. By Default, All assets are fetched."
         },
         {
-          "name": "per_page",
-          "title": "Per Page",
-          "type": "integer",
+          "name": "query",
+          "title": "Query",
+          "type": "text",
+          "value": "type in ('Security Investigation')",
           "editable": true,
           "visible": true,
-          "value": "3",
           "required": false,
-          "tooltip": "Specify the number of investigations to be shown per page. Maximum value can be 100",
-          "description": "Specify the number of investigations to be shown per page. Maximum value can be 100"
+          "tooltip": "Specify the cql query you want to search through the GraphQL API. By default, It searches type in Security Investigation",
+          "description": "Specify the cql query you want to search through the GraphQL API. By default, It searches type in Security Investigation"
         },
         {
           "name": "order_by_field",
@@ -356,27 +357,26 @@
           "description": "Specify the order direction available for the order field of the AllInvestigations queries. By Default, It searches in Ascending Order."
         },
         {
-          "name": "filter_asset_state",
-          "title": "Filter Asset State",
-          "type": "select",
-          "value": "All",
-          "options": "All, Deleted, Active, Unhealthy",
+          "name": "page",
+          "title": "Page",
+          "type": "integer",
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Filters the fetched Assets on the basis of their states. By Default, All assets are fetched.",
-          "description": "Filters the fetched Assets on the basis of their states. By Default, All assets are fetched."
+          "value": 1,
+          "tooltip": "Specify the page number which you want to be fetched.",
+          "description": "Specify the page number which you want to be fetched."
         },
         {
-          "name": "query",
-          "title": "Query",
-          "type": "text",
-          "value": "type in ('Security Investigation')",
+          "name": "per_page",
+          "title": "Per Page",
+          "type": "integer",
           "editable": true,
           "visible": true,
+          "value": 3,
           "required": false,
-          "tooltip": "Specify the cql query you want to search through the GraphQL API. By default, It searches type in Security Investigation",
-          "description": "Specify the cql query you want to search through the GraphQL API. By default, It searches type in Security Investigation"
+          "tooltip": "Specify the number of investigations to be shown per page. Maximum value can be 100",
+          "description": "Specify the number of investigations to be shown per page. Maximum value can be 100"
         }
       ]
     },
@@ -419,7 +419,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "value": "1",
+          "value": 1,
           "tooltip": "Specify the page number which you want to be fetched.",
           "description": "Specify the page number which you want to be fetched."
         },
@@ -429,7 +429,7 @@
           "type": "integer",
           "editable": true,
           "visible": true,
-          "value": "10",
+          "value": 10,
           "required": false,
           "tooltip": "Specify the number of alerts to be shown per page. Maximum value can be 100",
           "description": "Specify the number of alerts to be shown per page. Maximum value can be 100"
