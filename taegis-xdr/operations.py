@@ -138,7 +138,7 @@ def update_investigation(config: dict, params: dict):
     params = _build_payload(params)
     tx = TaegisXDR(config)
     data_query = {
-        "query": update_investigation_query.format(investigation_id=params.get('investigation_id'),description=params.get('description'),key_findings=params.get('key_findings'),priority=params.get('priority'), status={params.get('status')}, asignee_id=params.get('asignee_id'))}
+        "query": update_investigation_query.format(investigation_id=params.get('investigation_id'),description=params.get('description'),key_findings=params.get('key_findings'),priority=params.get('priority'), status={params.get('status')}, assignee_id=params.get('assignee_id'))}
     return tx.make_request(method="POST", data=data_query)
 
 
