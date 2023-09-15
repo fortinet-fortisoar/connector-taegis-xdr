@@ -14,6 +14,11 @@ valid_dict = {"Ascending": "asc", "Descending": "desc", "Hostname": "hostname", 
               "True Positive Malicious": "TRUE POSITIVE MALICIOUS", "False Positive": "FALSE POSITIVE",
               "Not Actionable": "NOT ACTIONABLE", "Other": "OTHER", "Suppressed": "SUPPRESSED"}
 
+server_url_dict = {"US-1": "https://api.ctpx.secureworks.com", "US-2": "https://api.delta.taegis.secureworks.com",
+                   "US WEST": "https://api.foxtrot.taegis.secureworks.com",
+                   "EU": "https://api.echo.taegis.secureworks.com"}
+
+
 get_alerts_query = """
     query alertsServiceSearch($in: SearchRequestInput = {cql_query: "{cql_query}", limit: {limit}, offset: {offset} })
     {

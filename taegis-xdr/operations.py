@@ -7,15 +7,11 @@ import requests
 import time
 from connectors.core.connector import get_logger, ConnectorError
 from connectors.core.utils import update_connnector_config
-from taegis_xdr_api_auth import TaegisXDRAuth
+from .taegis_xdr_api_auth import TaegisXDRAuth
 import base64, json
 from constants import *
 
 logger = get_logger("taegis-xdr")
-
-server_url_dict = {"US-1": "https://api.ctpx.secureworks.com", "US-2": "https://api.delta.taegis.secureworks.com",
-                   "US WEST": "https://api.foxtrot.taegis.secureworks.com",
-                   "EU": "https://api.echo.taegis.secureworks.com"}
 
 
 class TaegisXDR:

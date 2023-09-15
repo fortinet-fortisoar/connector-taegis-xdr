@@ -5,7 +5,7 @@ FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
 Copyright end """
 from connectors.core.connector import Connector, get_logger, ConnectorError
 from .operations import operations
-from taegis_xdr_api_auth import check
+from .taegis_xdr_api_auth import check
 logger = get_logger("taegis-xdr")
 
 class TaegisXDRConnector(Connector):
