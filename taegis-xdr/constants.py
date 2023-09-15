@@ -99,7 +99,7 @@ update_alert_status_query = """
         }
 """
 
-update_investigation_query = """mutation updateInvestigation($investigation_id: ID! = {investigation_id}, $investigation: UpdateInvestigationInput = { description: {description}, key_findings: {key_findings}, priority: {priority}, status: {status}, asignee_id: {asignee_id} })
+update_investigation_query = """mutation updateInvestigation($investigation_id: ID! = {investigation_id}, $investigation: UpdateInvestigationInput = { description: {description}, key_findings: {key_findings}, priority: {priority}, status: {status}, assignee_id: {assignee_id} })
     {
         updateInvestigation(investigation_id: $investigation_id, investigation: $investigation)
         {

@@ -2,14 +2,14 @@
   "name": "taegis-xdr",
   "label": "Taegis XDR",
   "version": "1.0.0",
-  "description": "Secureworks Taegis\u2122 XDR offers superior detection, unmatched response and an open platform built from the ground up to integrate market-leading technologies and deliver the highest ROI.",
+  "description": "SecureWorks Taegis™ XDR offers superior detection, unmatched response and an open platform built from the ground up to integrate market-leading technologies and deliver the highest ROI.",
   "publisher": "Fortinet",
   "cs_approved": false,
   "cs_compatible": true,
   "category": "Threat Detection",
   "icon_small_name": "small.png",
   "icon_large_name": "large.png",
-  "help_online": "",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.0/taegis-xdr/683/taegis-xdr-v1-0-0",
   "configuration": {
     "fields": [
       {
@@ -65,7 +65,7 @@
       "operation": "get_alerts",
       "title": "Get Alerts",
       "annotation": "get_alerts",
-      "description": "Retrieves all the Alerts for a given Query and returns a Common Fields of Interests",
+      "description": "Retrieves all alerts with Common Fields of Interests based on the filter query and other input parameters specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -79,8 +79,8 @@
           "visible": true,
           "required": true,
           "value": "FROM alert WHERE severity >= 0.6 AND status = 'OPEN' EARLIEST=-1d",
-          "tooltip": "Specify the CQL query to utilize when searching for Alerts. By default, It Queries for Alerts which are in OPEN state, have severity High/Critical and were created within 1 Day.",
-          "description": "Specify the CQL query to utilize when searching for Alerts. By default, It Queries for Alerts which are in OPEN state, have severity High/Critical and were created within 1 Day."
+          "tooltip": "Specify the CQL query to run when searching for alerts. By default, it queries for alerts which are in OPEN state, have severity High/Critical, and were created within 1 Day. For more information on CQL query refer to Apache CQL documentation",
+          "description": "Specify the CQL query to run when searching for alerts. By default, it queries for alerts which are in OPEN state, have severity High/Critical, and were created within 1 Day. For more information on CQL query refer to Apache CQL documentation"
         },
         {
           "name": "limit",
@@ -101,7 +101,8 @@
           "visible": true,
           "value": 0,
           "required": false,
-          "description": "Specify the offset result set requested. If your query has 500 total_results and you want the last 100; use offset:400 limit:100"
+          "tooltip": "Specify the number of records to skip when retrieving the result set. For example, if your query has 500 total_results and you want the last 100 results, set Offset to 400.",
+          "description": "Specify the number of records to skip when retrieving the result set. For example, if your query has 500 total_results and you want the last 100 results, set Offset to 400."
         }
       ],
       "output_schema": {
@@ -124,7 +125,7 @@
       "operation": "get_assets",
       "title": "Get Assets",
       "annotation": "get_assets",
-      "description": "Get a list of assets according to the specified parameters.",
+      "description": "Retrieves a list of assets based on the filter asset state, order, and other input parameters specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -172,36 +173,58 @@
           "title": "Filter Asset State",
           "type": "select",
           "value": "All",
-          "options": "All, Deleted, Active, Unhealthy",
+          "options": [
+            "All",
+            "Deleted",
+            "Active",
+            "Unhealthy"
+          ],
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Filters the fetched Assets on the basis of their states. By Default, All assets are fetched.",
-          "description": "Filters the fetched Assets on the basis of their states. By Default, All assets are fetched."
+          "tooltip": "Select the asset state to filter the fetched assets. You can select from the following options:All,Deleted,Active,Unhealthy.By Default, All assets are fetched.",
+          "description": "Select the asset state to filter the fetched assets. You can select from the following options:All,Deleted,Active,Unhealthy.By Default, All assets are fetched."
         },
         {
           "name": "order_by",
           "title": "Order By",
           "type": "select",
           "value": "Hostname",
-          "options": "Hostname, IP Address, MAC Address, Tag, Username, OS Version, Endpoint Type, Created At, Updated At, Deleted At, OS Family, OS Distributor, Sensor Version",
+          "options": [
+            "Hostname",
+            "IP Address",
+            "MAC Address",
+            "Tag",
+            "Username",
+            "OS Version",
+            "Endpoint Type",
+            "Created At",
+            "Updated At",
+            "Deleted At",
+            "OS Family",
+            "OS Distributor",
+            "Sensor Version"
+          ],
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the ordering of the AllAssets and SearchAssets queries. By Default, It Orders by hostname.",
-          "description": "Specify the ordering of the AllAssets and SearchAssets queries. By Default, It Orders by hostname."
+          "tooltip": "Select the criteria by which to order the assets. You can select from the following options:Hostname,IP Address,MAC Address,Tag,Username,OS Version,Endpoint Type,Created At,Updated At,Deleted At,OS Family,OS Distributor,Sensor Version.By Default, the sorting criteria is set to Hostname.",
+          "description": "Select the criteria by which to order the assets. You can select from the following options:Hostname,IP Address,MAC Address,Tag,Username,OS Version,Endpoint Type,Created At,Updated At,Deleted At,OS Family,OS Distributor,Sensor Version.By Default, the sorting criteria is set to Hostname."
         },
         {
           "name": "order_direction",
           "title": "Order Direction",
           "type": "select",
           "value": "Ascending",
-          "options": "Ascending,Descending",
+          "options": [
+            "Ascending",
+            "Descending"
+          ],
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the order direction available for the order field of the AllAssets and SearchAssets queries. By Default, It searches in Ascending Order.",
-          "description": "Specify the order direction available for the order field of the AllAssets and SearchAssets queries. By Default, It searches in Ascending Order."
+          "tooltip": "Select the order in which the assets are listed.By Default, It retrieves the assets in Ascending order.",
+          "description": "Select the order in which the assets are listed.By Default, It retrieves the assets in Ascending order."
         },
         {
           "name": "only_most_recent",
@@ -211,8 +234,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Check this if you want to fetch only the assets which are recently created.",
-          "description": "Check this if you want to fetch only the assets which are recently created."
+          "tooltip": "Select this option to fetch only those assets which were created within the last 24 hours.",
+          "description": "Select this option to fetch only those assets which were created within the last 24 hours."
         },
         {
           "name": "limit",
@@ -242,7 +265,7 @@
       "operation": "get_endpoint",
       "title": "Get Endpoint",
       "annotation": "get_endpoint",
-      "description": "Get a RedCloak endpoint info by endpoint ID.",
+      "description": "Retrieves a RedCloak endpoint info based on the endpoint ID specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -275,8 +298,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the Endpoint ID of which you want to fetch RedCloak endpoint info",
-          "description": "Specify the Endpoint ID of which you want to fetch RedCloak endpoint info"
+          "tooltip": "Specify the endpoint ID for which to fetch SecureWorks RedCloak™ endpoint information.",
+          "description": "Specify the endpoint ID for which to fetch SecureWorks RedCloak™ endpoint information."
         }
       ]
     },
@@ -284,7 +307,7 @@
       "operation": "get_investigations",
       "title": "Get Investigations",
       "annotation": "get_investigations",
-      "description": "Get a list of investgations search according to the specified parameters and cql query.",
+      "description": "Retrieves a list of investigations filter asset state, CQL Query, and other input parameters specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -314,12 +337,17 @@
           "title": "Filter Asset State",
           "type": "select",
           "value": "All",
-          "options": "All, Deleted, Active, Unhealthy",
+          "options": [
+            "All",
+            "Deleted",
+            "Active",
+            "Unhealthy"
+          ],
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Filters the fetched Assets on the basis of their states. By Default, All assets are fetched.",
-          "description": "Filters the fetched Assets on the basis of their states. By Default, All assets are fetched."
+          "tooltip": "Select the asset state to filter the fetched assets. You can select from the following options:All,Deleted,Active,Unhealthy.By Default, All assets are fetched.",
+          "description": "Select the asset state to filter the fetched assets. You can select from the following options:All,Deleted,Active,Unhealthy.By Default, All assets are fetched."
         },
         {
           "name": "query",
@@ -329,32 +357,59 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the cql query you want to search through the GraphQL API. By default, It searches type in Security Investigation",
-          "description": "Specify the cql query you want to search through the GraphQL API. By default, It searches type in Security Investigation"
+          "tooltip": "Specify the CQL query to run when searching for investigations. By default, it runs the query type in ('Security Investigation'). For more information on CQL query refer to Apache CQL documentation",
+          "description": "Specify the CQL query to run when searching for investigations. By default, it runs the query type in ('Security Investigation'). For more information on CQL query refer to Apache CQL documentation"
         },
         {
           "name": "order_by_field",
           "title": "Order by Field",
           "type": "select",
           "value": "ID",
-          "options": "ID,Tenant ID,Tags,Genesis Alerts,Genesis Events,Alerts,Events,Assets,Auth Credentials,Key Findings,Description,Created At,Updated At,Notified At,Created By,Status,Contributors,Service Desk ID,Service Desk Type,All Alerts,All Events,Priority,Type",
+          "options": [
+            "ID",
+            "Tenant ID",
+            "Tags",
+            "Genesis Alerts",
+            "Genesis Events",
+            "Alerts",
+            "Events",
+            "Assets",
+            "Auth Credentials",
+            "Key Findings",
+            "Description",
+            "Created At",
+            "Updated At",
+            "Notified At",
+            "Created By",
+            "Status",
+            "Contributors",
+            "Service Desk ID",
+            "Service Desk Type",
+            "All Alerts",
+            "All Events",
+            "Priority",
+            "Type"
+          ],
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the ordering of the AllInvestigations queries. By Default, It Orders by ID.",
-          "description": "Specify the ordering of the AllInvestigations queries. By Default, It Orders by ID."
+          "tooltip": "Select the criteria by which to order the investigations. By Default, It Orders by ID.",
+          "description": "Select the criteria by which to order the investigations. By Default, It Orders by ID."
         },
         {
           "name": "order_direction",
           "title": "Order Direction",
           "type": "select",
           "value": "Ascending",
-          "options": "Ascending,Descending",
+          "options": [
+            "Ascending",
+            "Descending"
+          ],
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the order direction available for the order field of the AllInvestigations queries. By Default, It searches in Ascending Order.",
-          "description": "Specify the order direction available for the order field of the AllInvestigations queries. By Default, It searches in Ascending Order."
+          "tooltip": "Select the criteria by which to order the investigations.By Default, It orders in Ascending Order.",
+          "description": "Select the criteria by which to order the investigations.By Default, It orders in Ascending Order."
         },
         {
           "name": "page",
@@ -364,8 +419,8 @@
           "visible": true,
           "required": false,
           "value": 1,
-          "tooltip": "Specify the page number which you want to be fetched.",
-          "description": "Specify the page number which you want to be fetched."
+          "tooltip": "Specify the page number from which you want to fetch the investigations.",
+          "description": "Specify the page number from which you want to fetch the investigations."
         },
         {
           "name": "per_page",
@@ -375,8 +430,8 @@
           "visible": true,
           "value": 3,
           "required": false,
-          "tooltip": "Specify the number of investigations to be shown per page. Maximum value can be 100",
-          "description": "Specify the number of investigations to be shown per page. Maximum value can be 100"
+          "tooltip": "Specify the number of investigations to be shown per page. You can specify a maximum value of 100.",
+          "description": "Specify the number of investigations to be shown per page. You can specify a maximum value of 100."
         }
       ]
     },
@@ -384,7 +439,7 @@
       "operation": "get_investigations_alerts",
       "title": "Get Investigations Alerts",
       "annotation": "get_investigations_alerts",
-      "description": "Get a list of Alerts associated with an investgation according to the specified investigation ID.",
+      "description": "Retrieves a list of alerts associated with an investigation based on the investigation ID and other input parameters specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -420,8 +475,8 @@
           "visible": true,
           "required": false,
           "value": 1,
-          "tooltip": "Specify the page number which you want to be fetched.",
-          "description": "Specify the page number which you want to be fetched."
+          "tooltip": "Specify the page number from which you want to fetch the investigations.",
+          "description": "Specify the page number from which you want to fetch the investigations."
         },
         {
           "name": "per_page",
@@ -431,8 +486,8 @@
           "visible": true,
           "value": 10,
           "required": false,
-          "tooltip": "Specify the number of alerts to be shown per page. Maximum value can be 100",
-          "description": "Specify the number of alerts to be shown per page. Maximum value can be 100"
+          "tooltip": "Specify the number of investigations to be shown per page. You can specify a maximum value of 100.",
+          "description": "Specify the number of investigations to be shown per page. You can specify a maximum value of 100."
         }
       ]
     },
@@ -440,7 +495,7 @@
       "operation": "get_playbook_execution",
       "title": "Get Playbook Execution",
       "annotation": "get_investigations_alerts",
-      "description": "Gets the state of a playbook execution by a playbook execution ID",
+      "description": "Retrieves the state of a playbook execution based on the playbook execution ID specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -476,8 +531,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the Playbook Execution ID whose state you want to fetch.",
-          "description": "Specify the Playbook Execution ID whose state you want to fetch."
+          "tooltip": "Specify the playbook execution ID whose state you want to fetch.",
+          "description": "Specify the playbook execution ID whose state you want to fetch."
         }
       ]
     },
@@ -485,7 +540,7 @@
       "operation": "get_user_by_id",
       "title": "Get User by ID",
       "annotation": "get_user_by_id",
-      "description": "Gets the state of a playbook execution by a playbook execution ID",
+      "description": "Retrieves the state of a playbook execution based on the user and tenant ID specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -511,8 +566,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the User ID whose details you want to fetch.",
-          "description": "Specify the User ID whose details you want to fetch."
+          "tooltip": "Specify the user ID whose details you want to fetch.",
+          "description": "Specify the user ID whose details you want to fetch."
         },
         {
           "name": "tenant_id",
@@ -521,8 +576,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the ID of the tenant that the target user is a member of.",
-          "description": "Specify the ID of the tenant that the target user is a member of."
+          "tooltip": "Specify the tenant ID of which the specified user is a member.",
+          "description": "Specify the tenant ID of which the specified user is a member."
         }
       ]
     },
@@ -530,7 +585,7 @@
       "operation": "isolate_assets",
       "title": "Isolate Assets",
       "annotation": "isolate_assets",
-      "description": "Isolates the asset by an Asset ID and the reason to be isolated",
+      "description": "Isolates the asset based on the Asset ID and the isolation reason specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -560,8 +615,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the reason of why you want to isolate the target asset.",
-          "description": "Specify the reason of why you want to isolate the target asset."
+          "tooltip": "Specify a reason for isolation of the specified asset.",
+          "description": "Specify a reason for isolation of the specified asset."
         }
       ]
     },
@@ -569,7 +624,7 @@
       "operation": "update_alert_status",
       "title": "Update Alert Status",
       "annotation": "update_alert_status",
-      "description": "Add a resolution status or modify an existing resolution status for a give list of alert IDs.",
+      "description": "Adds a resolution status or modifies an existing resolution status based on the alert IDs and other input parameters specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -590,20 +645,27 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the IDs of the Alerts in comma separated manner whose resolution status you want to update.",
-          "description": "Specify the IDs of the Alerts in comma separated manner whose resolution status you want to update."
+          "tooltip": "Specify the IDs of the alerts as comma-separated values whose resolution status you want to update.",
+          "description": "Specify the IDs of the alerts as comma-separated values whose resolution status you want to update."
         },
         {
           "name": "resolution_status",
           "title": "Resolution Status",
           "type": "select",
-          "options": "Open,True Positive Benign,True Positive Malicious,False Positive,Not Actionable,Other,Suppressed",
+          "options": [
+            "Open,True Positive Benign",
+            "True Positive Malicious",
+            "False Positive",
+            "Not Actionable",
+            "Other",
+            "Suppressed"
+          ],
           "value": "False Positive",
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the resolution status you want to apply to target alerts",
-          "description": "Specify the resolution status you want to apply to target alerts"
+          "tooltip": "Specify the resolution status you want to apply to specified alerts.",
+          "description": "Specify the resolution status you want to apply to specified alerts."
         },
         {
           "name": "reason",
@@ -612,8 +674,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the reason of why you want to update the status to target asset.",
-          "description": "Specify the reason of why you want to update the status to target asset."
+          "tooltip": "Specify a reason for updating the status of specified assets.",
+          "description": "Specify a reason for updating the status of specified assets."
         }
       ]
     },
@@ -621,7 +683,7 @@
       "operation": "update_investigation",
       "title": "Update Investigation",
       "annotation": "update_investigation",
-      "description": "Update an investigation fields based on investigation ID and parameters provided.",
+      "description": "Updates investigation fields based on the investigation ID and other input parameters specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -641,8 +703,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the ID of the investigation whose fields you want to update",
-          "description": "Specify the ID of the investigation whose fields you want to update"
+          "tooltip": "Specify the ID of the investigation whose fields you want to update.",
+          "description": "Specify the ID of the investigation whose fields you want to update."
         },
         {
           "name": "description",
@@ -651,8 +713,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the investigation's description which you want to update",
-          "description": "Specify the investigation's description which you want to update"
+          "tooltip": "Specify a description to update for the specified investigation.",
+          "description": "Specify a description to update for the specified investigation."
         },
         {
           "name": "key_findings",
@@ -661,8 +723,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the investigation's Key Findings which you want to update",
-          "description": "Specify the investigation's Key Findings which you want to update"
+          "tooltip": "Specify the key findings to update for the specified investigation.",
+          "description": "Specify the key findings to update for the specified investigation."
         },
         {
           "name": "priority",
@@ -671,14 +733,26 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the priority of investigation in the range 1-5.",
-          "description": "Specify the priority of investigation in the range 1-5."
+          "tooltip": "Specify the priority of the investigation in the range 1-5 to update in the specified investigation.",
+          "description": "Specify the priority of the investigation in the range 1-5 to update in the specified investigation."
         },
         {
           "name": "status",
           "title": "Investigation's Status",
           "type": "select",
-          "options": "Active,Awaiting Action,Closed: Authorized Activity,Closed: Confirmed Security Incident,Closed: False Positive Alert,Closed: Inconclusive,Closed: Informational,Closed: Not Vulnerable,Closed: Threat Mitigated,Open,Suspended",
+          "options": [
+            "Active",
+            "Awaiting Action",
+            "Closed: Authorized Activity",
+            "Closed: Confirmed Security Incident",
+            "Closed: False Positive Alert",
+            "Closed: Inconclusive",
+            "Closed: Informational",
+            "Closed: Not Vulnerable",
+            "Closed: Threat Mitigated",
+            "Open",
+            "Suspended"
+          ],
           "value": "Active",
           "editable": true,
           "visible": true,
@@ -687,14 +761,14 @@
           "description": "Specify the status of Investigation. You can choose 'Active,Awaiting Action,Closed: Authorized Activity,Closed: Confirmed Security Incident,Closed: False Positive Alert,Closed: Inconclusive,Closed: Informational,Closed: Not Vulnerable,Closed: Threat Mitigated,Open,Suspended'"
         },
         {
-          "name": "asignee_id",
-          "title": "Asignee ID",
+          "name": "assignee_id",
+          "title": "Assignee ID",
           "type": "text",
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify The id of a user to assign",
-          "description": "Specify The id of a user to assign"
+          "tooltip": "Specify The ID of the user to whom this investigation is to be assigned.",
+          "description": "Specify The ID of the user to whom this investigation is to be assigned."
         }
       ]
     }
