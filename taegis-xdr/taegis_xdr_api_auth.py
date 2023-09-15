@@ -10,7 +10,7 @@ from datetime import datetime
 from connectors.core.connector import get_logger, ConnectorError
 from connectors.core.utils import update_connnector_config
 import json,base64,requests
-from operations import server_url_dict
+from .constants import server_url_dict
 
 logger = get_logger('taegis-xdr')
 
