@@ -26,11 +26,10 @@ class TaegisXDRAuth:
         self.client_id = config['client_id']
         self.environment = config['environment']
 
-    def generate_token(self):
+    def generate_token(self, config):
         credentials = f"{self.client_id}:{self.client_secret}"
         credentials_base64 = base64.b64encode(credentials.encode()).decode()
-        url = "https://api.ctpx.secureworks.com/auth/api/v2/auth/token"
-
+        url = f"{server_url_dict.get(config.get('environment'))}/auth/api/v2/auth/token"
         payload = json.dumps({
             "grant_type": "client_credentials"
         })
@@ -39,7 +38,8 @@ class TaegisXDRAuth:
             'Authorization': f'Basic {credentials_base64}'
         }
         response = requests.request("POST", url, headers=headers, data=payload)
-        return response
+
+        return response.json()
 
     def convert_ts_epoch(self, ts):
         datetime_object = datetime.strptime(ts, "%Y-%m-%dT%H:%M:%S.%fZ")
@@ -48,13 +48,18 @@ class TaegisXDRAuth:
     def validate_token(self, connector_config, connector_info):
         ts_now = time()
         if not connector_config.get('access_token'):
-            logger.error('Error occurred while connecting server: Unauthorized')
-            raise ConnectorError('Error occurred while connecting server: Unauthorized')
+            token_resp = self.generate_token(connector_config)
+            connector_config['access_token'] = token_resp['access_token']
+            connector_config['expiry'] = token_resp['expiry']
+            update_connnector_config(connector_info['connector_name'], connector_info['connector_version'],
+                                     connector_config,
+                                     connector_config['config_id'])
+
         expires = connector_config['expiry']
         expires_ts = self.convert_ts_epoch(expires)
         if ts_now > float(expires_ts):
             logger.info("Token expired at {0}".format(expires))
-            token_resp = self.generate_token()
+            token_resp = self.generate_token(connector_config)
             connector_config['access_token'] = token_resp['access_token']
             connector_config['expiry'] = token_resp['expiry']
             update_connnector_config(connector_info['connector_name'], connector_info['connector_version'],
@@ -70,7 +75,7 @@ def check(config):
     try:
         txa = TaegisXDRAuth(config)
         if not 'access_token' in config:
-            token_resp = txa.generate_token()
+            token_resp = txa.generate_token(config)
             config['access_token'] = token_resp.get('access_token')
             config['expiry'] = token_resp.get('expiry')
             update_connnector_config(config['connector_info']['connector_name'],

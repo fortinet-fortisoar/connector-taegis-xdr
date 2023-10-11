@@ -6,7 +6,9 @@ Copyright end """
 from connectors.core.connector import Connector, get_logger, ConnectorError
 from .operations import operations
 from .taegis_xdr_api_auth import check
+
 logger = get_logger("taegis-xdr")
+
 
 class TaegisXDRConnector(Connector):
     def execute(self, config, operation, params, **kwargs):
@@ -23,7 +25,7 @@ class TaegisXDRConnector(Connector):
     def check_health(self, config=None):
         try:
             config['connector_info'] = {"connector_name": self._info_json.get('name'),
-                "connector_version": self._info_json.get('version')}
+                                        "connector_version": self._info_json.get('version')}
             check(config)
         except Exception as err:
             raise ConnectorError(err)
