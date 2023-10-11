@@ -1,8 +1,8 @@
 {
   "name": "taegis-xdr",
   "label": "Taegis XDR",
-  "version": "1.0.0",
-  "description": "SecureWorks Taegis™ XDR offers superior detection, unmatched response and an open platform built from the ground up to integrate market-leading technologies and deliver the highest ROI.",
+  "version": "1.1.0",
+  "description": "SecureWorks Taegis\u2122 XDR offers superior detection, unmatched response and an open platform built from the ground up to integrate market-leading technologies and deliver the highest ROI.",
   "publisher": "Fortinet",
   "cs_approved": false,
   "cs_compatible": true,
@@ -15,7 +15,7 @@
       {
         "name": "client_id",
         "title": "Client ID",
-        "type": "text",
+        "type": "password",
         "editable": true,
         "visible": true,
         "required": true,
@@ -25,7 +25,7 @@
       {
         "name": "client_secret",
         "title": "Client Secret",
-        "type": "text",
+        "type": "password",
         "editable": true,
         "visible": true,
         "required": true,
@@ -62,244 +62,96 @@
   },
   "operations": [
     {
-      "operation": "get_alerts",
-      "title": "Get Alerts",
-      "annotation": "get_alerts",
-      "description": "Retrieves all alerts with Common Fields of Interests based on the filter query and other input parameters specified.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "cql_query",
-          "title": "CQL Query",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "value": "FROM alert WHERE severity >= 0.6 AND status = 'OPEN' EARLIEST=-1d",
-          "tooltip": "Specify the CQL query to run when searching for alerts. By default, it queries for alerts which are in OPEN state, have severity High/Critical, and were created within 1 Day. For more information on CQL query refer to Apache CQL documentation",
-          "description": "Specify the CQL query to run when searching for alerts. By default, it queries for alerts which are in OPEN state, have severity High/Critical, and were created within 1 Day. For more information on CQL query refer to Apache CQL documentation"
-        },
-        {
-          "name": "limit",
-          "title": "Limit",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "value": 10,
-          "tooltip": "Specify the number of Alerts to be shown per page.",
-          "description": "Specify the number of Alerts to be shown per page."
-        },
-        {
-          "name": "offset",
-          "title": "Offset",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "value": 0,
-          "required": false,
-          "tooltip": "Specify the number of records to skip when retrieving the result set. For example, if your query has 500 total_results and you want the last 100 results, set Offset to 400.",
-          "description": "Specify the number of records to skip when retrieving the result set. For example, if your query has 500 total_results and you want the last 100 results, set Offset to 400."
-        }
-      ],
-      "output_schema": {
-        "TaegisXDR": {
-          "Alerts": [
-            {
-              "id": "",
-              "metadata": {
-                "title": "",
-                "description": "",
-                "severity": ""
-              },
-              "url": ""
-            }
-          ]
-        }
-      }
-    },
-    {
-      "operation": "get_assets",
-      "title": "Get Assets",
-      "annotation": "get_assets",
-      "description": "Retrieves a list of assets based on the filter asset state, order, and other input parameters specified.",
+      "operation": "create_investigation",
+      "title": "Create Investigation",
+      "annotation": "create_investigation",
+      "description": "Creates investigation fields based on the descriptions of investigations and other input parameters specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
       "enabled": true,
       "output_schema": {
         "TaegisXDR": {
-          "Assets": [
-            {
-              "id": "",
-              "ingestTime": "",
-              "createdAt": "",
-              "updatedAt": "",
-              "deletedAt": "",
-              "biosSerial": "",
-              "firstDiskSerial": "",
-              "systemVolumeSerial": "",
-              "sensorVersion": "",
-              "endpointPlatform": "",
-              "hostnames": "",
-              "architecture": "",
-              "osFamily": "",
-              "osVersion": "",
-              "osDistributor": "",
-              "osRelease": "",
-              "systemType": "",
-              "osCodename": "",
-              "kernelRelease": "",
-              "kernelVersion": "",
-              "tags": [
-                {
-                  "key": "",
-                  "tag": ""
-                }
-              ],
-              "endpointType": "",
-              "hostId": "",
-              "sensorId": ""
-            }
-          ]
-        }
-      },
-      "parameters": [
-        {
-          "name": "filter_asset_state",
-          "title": "Filter Asset State",
-          "type": "select",
-          "value": "All",
-          "options": [
-            "All",
-            "Deleted",
-            "Active",
-            "Unhealthy"
-          ],
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the asset state to filter the fetched assets. You can select from the following options:All,Deleted,Active,Unhealthy.By Default, All assets are fetched.",
-          "description": "Select the asset state to filter the fetched assets. You can select from the following options:All,Deleted,Active,Unhealthy.By Default, All assets are fetched."
-        },
-        {
-          "name": "order_by",
-          "title": "Order By",
-          "type": "select",
-          "value": "Hostname",
-          "options": [
-            "Hostname",
-            "IP Address",
-            "MAC Address",
-            "Tag",
-            "Username",
-            "OS Version",
-            "Endpoint Type",
-            "Created At",
-            "Updated At",
-            "Deleted At",
-            "OS Family",
-            "OS Distributor",
-            "Sensor Version"
-          ],
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the criteria by which to order the assets. You can select from the following options:Hostname,IP Address,MAC Address,Tag,Username,OS Version,Endpoint Type,Created At,Updated At,Deleted At,OS Family,OS Distributor,Sensor Version.By Default, the sorting criteria is set to Hostname.",
-          "description": "Select the criteria by which to order the assets. You can select from the following options:Hostname,IP Address,MAC Address,Tag,Username,OS Version,Endpoint Type,Created At,Updated At,Deleted At,OS Family,OS Distributor,Sensor Version.By Default, the sorting criteria is set to Hostname."
-        },
-        {
-          "name": "order_direction",
-          "title": "Order Direction",
-          "type": "select",
-          "value": "Ascending",
-          "options": [
-            "Ascending",
-            "Descending"
-          ],
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the order in which the assets are listed.By Default, It retrieves the assets in Ascending order.",
-          "description": "Select the order in which the assets are listed.By Default, It retrieves the assets in Ascending order."
-        },
-        {
-          "name": "only_most_recent",
-          "title": "Only Most Recent",
-          "type": "checkbox",
-          "value": false,
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select this option to fetch only those assets which were created within the last 24 hours.",
-          "description": "Select this option to fetch only those assets which were created within the last 24 hours."
-        },
-        {
-          "name": "limit",
-          "title": "Limit",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "value": 10,
-          "tooltip": "Specify the number of Assets to be shown per page.",
-          "description": "Specify the number of Assets to be shown per page."
-        },
-        {
-          "name": "offset",
-          "title": "Offset",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "value": 0,
-          "required": false,
-          "tooltip": "Specify the offset result set requested. If your query has 500 total_results and you want the last 100; use offset:400 limit:100",
-          "description": "Specify the offset result set requested. If your query has 500 total_results and you want the last 100; use offset:400 limit:100"
-        }
-      ]
-    },
-    {
-      "operation": "get_endpoint",
-      "title": "Get Endpoint",
-      "annotation": "get_endpoint",
-      "description": "Retrieves a RedCloak endpoint info based on the endpoint ID specified.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "output_schema": {
-        "TaegisXDR": {
-          "assetEndpointInfo": {
-            "hostId": "",
-            "hostName": "",
-            "actualIsolationStatus": "",
-            "allowedDomain": "",
-            "desiredIsolationStatus": "",
-            "firstConnectTime": "",
-            "moduleHealth": {
-              "enabled": "",
-              "lastRunningTime": "",
-              "moduleDisplayName": ""
-            },
-            "lastConnectAddress": "",
-            "lastConnectTime": "",
-            "sensorVersion": ""
+          "Investigation": {
+            "id": ""
           }
         }
       },
       "parameters": [
         {
-          "name": "id",
-          "title": "Endpoint ID",
+          "name": "description",
+          "title": "Description of Investigation",
           "type": "text",
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the endpoint ID for which to fetch SecureWorks RedCloak™ endpoint information.",
-          "description": "Specify the endpoint ID for which to fetch SecureWorks RedCloak™ endpoint information."
+          "tooltip": "Specify a description for the specified investigation.",
+          "description": "Specify a description for the specified investigation."
+        },
+        {
+          "name": "key_findings",
+          "title": "Key Findings",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the key findings for the specified investigation.",
+          "description": "Specify the key findings for the specified investigation."
+        },
+        {
+          "name": "priority",
+          "title": "Investigation's Priority",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "value": 3,
+          "required": false,
+          "tooltip": "Specify the priority of the investigation in the range 1-5 for the specified investigation.",
+          "description": "Specify the priority of the investigation in the range 1-5 for the specified investigation."
+        },
+        {
+          "name": "status",
+          "title": "Investigation's Status",
+          "type": "select",
+          "options": [
+            "Active",
+            "Awaiting Action",
+            "Closed: Authorized Activity",
+            "Closed: Confirmed Security Incident",
+            "Closed: False Positive Alert",
+            "Closed: Inconclusive",
+            "Closed: Informational",
+            "Closed: Not Vulnerable",
+            "Closed: Threat Mitigated",
+            "Open",
+            "Suspended"
+          ],
+          "value": "Open",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the status of Investigation. You can choose 'Active,Awaiting Action,Closed: Authorized Activity,Closed: Confirmed Security Incident,Closed: False Positive Alert,Closed: Inconclusive,Closed: Informational,Closed: Not Vulnerable,Closed: Threat Mitigated,Open,Suspended'",
+          "description": "Specify the status of Investigation. You can choose 'Active,Awaiting Action,Closed: Authorized Activity,Closed: Confirmed Security Incident,Closed: False Positive Alert,Closed: Inconclusive,Closed: Informational,Closed: Not Vulnerable,Closed: Threat Mitigated,Open,Suspended'"
+        },
+        {
+          "name": "assignee_id",
+          "title": "Assignee ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify The ID of the user to whom this investigation is to be assigned.",
+          "description": "Specify The ID of the user to whom this investigation is to be assigned."
+        },
+        {
+          "name": "alerts",
+          "title": "Alert ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the ID of the Alert which is to be added.",
+          "description": "Specify the ID of the Alert which is to be added."
         }
       ]
     },
@@ -313,58 +165,127 @@
       "visible": true,
       "enabled": true,
       "output_schema": {
-        "TaegisXDR": {
-          "Investigations": [
-            {
-              "archived_at": "",
-              "created_at": "",
-              "description": "",
-              "id": "",
-              "key_findings": "",
-              "priority": "",
-              "service_desk_id": "",
-              "service_desk_type": "",
-              "status": "",
-              "alerts2": [],
-              "url": ""
-            }
-          ]
+        "data": {
+          "investigationsSearch": {
+            "totalCount": "",
+            "investigations": [
+              {
+                "search_queries": [],
+                "first_notified_at": "",
+                "notified_at": "",
+                "transition_state": {
+                  "handed_off": "",
+                  "acknowledge_time": "",
+                  "resolved_at_least_once": "",
+                  "handoff_time": "",
+                  "initial_handoff_time": "",
+                  "resolution_time": "",
+                  "initial_resolution_time": "",
+                  "acknowledged": "",
+                  "initial_acknowledge_time": "",
+                  "acknowledged_at_least_once": "",
+                  "resolved": "",
+                  "handed_off_at_least_once": ""
+                },
+                "tenant_id": "",
+                "description": "",
+                "contributors": [],
+                "genesis_events": [],
+                "events_count": "",
+                "alerts2": [
+                  {
+                    "id": ""
+                  }
+                ],
+                "assignee": "",
+                "service_desk_type": "",
+                "updated_at": "",
+                "investigationType": "",
+                "assets_count": "",
+                "genesis_events_count": "",
+                "alerts_count": "",
+                "assignee_id": "",
+                "tags": [],
+                "created_by_scwx": "",
+                "created_at": "",
+                "created_by_partner": "",
+                "activity_logs": [],
+                "auth_credentials": [],
+                "type": "",
+                "events": [
+                  {
+                    "id": ""
+                  }
+                ],
+                "assignee_user": {
+                  "id": ""
+                },
+                "rn": "",
+                "deleted_at": "",
+                "alerts": [
+                  {
+                    "id": ""
+                  }
+                ],
+                "processing_status": {
+                  "events": "",
+                  "alerts": "",
+                  "assets": ""
+                },
+                "first_notified_at_scwx": "",
+                "archived_at": "",
+                "service_desk_id": "",
+                "status": "",
+                "genesis_alerts_count": "",
+                "files_count": "",
+                "created_by_user": {
+                  "id": ""
+                },
+                "priority": "",
+                "assets": [
+                  {
+                    "id": ""
+                  }
+                ],
+                "contributed_users": [
+                  {
+                    "id": ""
+                  }
+                ],
+                "id": "",
+                "created_by": "",
+                "genesis_alerts": [],
+                "access_vectors": [],
+                "comments_count": {
+                  "parent_id": "",
+                  "unread": "",
+                  "parent_type": "",
+                  "total": ""
+                },
+                "latest_activity": "",
+                "genesis_alerts2": [],
+                "shortId": "",
+                "key_findings": ""
+              }
+            ]
+          }
         }
       },
       "parameters": [
         {
-          "name": "filter_asset_state",
-          "title": "Filter Asset State",
-          "type": "select",
-          "value": "All",
-          "options": [
-            "All",
-            "Deleted",
-            "Active",
-            "Unhealthy"
-          ],
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the asset state to filter the fetched assets. You can select from the following options:All,Deleted,Active,Unhealthy.By Default, All assets are fetched.",
-          "description": "Select the asset state to filter the fetched assets. You can select from the following options:All,Deleted,Active,Unhealthy.By Default, All assets are fetched."
-        },
-        {
           "name": "query",
           "title": "Query",
           "type": "text",
-          "value": "type in ('Security Investigation')",
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the CQL query to run when searching for investigations. By default, it runs the query type in ('Security Investigation'). For more information on CQL query refer to Apache CQL documentation",
-          "description": "Specify the CQL query to run when searching for investigations. By default, it runs the query type in ('Security Investigation'). For more information on CQL query refer to Apache CQL documentation"
+          "tooltip": "Specify the query to utilize when searching investigations.",
+          "description": "Specify the query to utilize when searching investigations."
         },
         {
-          "name": "order_by_field",
-          "title": "Order by Field",
+          "name": "orderByField",
+          "title": "Order By Field",
           "type": "select",
-          "value": "ID",
           "options": [
             "ID",
             "Tenant ID",
@@ -377,8 +298,6 @@
             "Auth Credentials",
             "Key Findings",
             "Description",
-            "Created At",
-            "Updated At",
             "Notified At",
             "Created By",
             "Status",
@@ -393,11 +312,11 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Select the criteria by which to order the investigations. By Default, It Orders by ID.",
-          "description": "Select the criteria by which to order the investigations. By Default, It Orders by ID."
+          "tooltip": "Specify the query to utilize when searching investigations.",
+          "description": "Specify the query to utilize when searching investigations."
         },
         {
-          "name": "order_direction",
+          "name": "orderDirection",
           "title": "Order Direction",
           "type": "select",
           "value": "Ascending",
@@ -408,8 +327,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Select the criteria by which to order the investigations.By Default, It orders in Ascending Order.",
-          "description": "Select the criteria by which to order the investigations.By Default, It orders in Ascending Order."
+          "tooltip": "Select the order in which the assets are listed.By Default, It retrieves the assets in Ascending order.",
+          "description": "Select the order in which the assets are listed.By Default, It retrieves the assets in Ascending order."
         },
         {
           "name": "page",
@@ -423,12 +342,12 @@
           "description": "Specify the page number from which you want to fetch the investigations."
         },
         {
-          "name": "per_page",
+          "name": "perPage",
           "title": "Per Page",
           "type": "integer",
           "editable": true,
           "visible": true,
-          "value": 3,
+          "value": 10,
           "required": false,
           "tooltip": "Specify the number of investigations to be shown per page. You can specify a maximum value of 100.",
           "description": "Specify the number of investigations to be shown per page. You can specify a maximum value of 100."
@@ -460,12 +379,12 @@
         {
           "name": "investigation_id",
           "title": "Investigation ID",
-          "type": "integer",
+          "type": "text",
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the Investigation ID whose list of alerts you want to fetch.",
-          "description": "Specify the Investigation ID whose list of alerts you want to fetch."
+          "tooltip": "Specify the ID of the investigation in which you want to add an Event.",
+          "description": "Specify the ID of the investigation in which you want to add an Event."
         },
         {
           "name": "page",
@@ -479,7 +398,7 @@
           "description": "Specify the page number from which you want to fetch the investigations."
         },
         {
-          "name": "per_page",
+          "name": "perPage",
           "title": "Per Page",
           "type": "integer",
           "editable": true,
@@ -488,194 +407,6 @@
           "required": false,
           "tooltip": "Specify the number of investigations to be shown per page. You can specify a maximum value of 100.",
           "description": "Specify the number of investigations to be shown per page. You can specify a maximum value of 100."
-        }
-      ]
-    },
-    {
-      "operation": "get_playbook_execution",
-      "title": "Get Playbook Execution",
-      "annotation": "get_investigations_alerts",
-      "description": "Retrieves the state of a playbook execution based on the playbook execution ID specified.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "output_schema": {
-        "TaegisXDR": {
-          "PlaybookExecution": {
-            "createdAt": "",
-            "executionTime": "",
-            "id": "",
-            "inputs": {
-              "alert": {
-                "message": ""
-              }
-            },
-            "instance": {
-              "name": "",
-              "playbook": {
-                "name": ""
-              }
-            },
-            "outputs": "",
-            "state": "",
-            "updatedAt": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "playbookExecutionId",
-          "title": "Playbook Execution ID",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "tooltip": "Specify the playbook execution ID whose state you want to fetch.",
-          "description": "Specify the playbook execution ID whose state you want to fetch."
-        }
-      ]
-    },
-    {
-      "operation": "get_user_by_id",
-      "title": "Get User by ID",
-      "annotation": "get_user_by_id",
-      "description": "Retrieves the state of a playbook execution based on the user and tenant ID specified.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "output_schema": {
-        "TaegisXDR": {
-          "Users": [
-            {
-              "email": "",
-              "family_name": "",
-              "given_name": "",
-              "status": "",
-              "user_id": ""
-            }
-          ]
-        }
-      },
-      "parameters": [
-        {
-          "name": "user_id",
-          "title": "User ID",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "tooltip": "Specify the user ID whose details you want to fetch.",
-          "description": "Specify the user ID whose details you want to fetch."
-        },
-        {
-          "name": "tenant_id",
-          "title": "Tenant ID",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "tooltip": "Specify the tenant ID of which the specified user is a member.",
-          "description": "Specify the tenant ID of which the specified user is a member."
-        }
-      ]
-    },
-    {
-      "operation": "isolate_assets",
-      "title": "Isolate Assets",
-      "annotation": "isolate_assets",
-      "description": "Isolates the asset based on the Asset ID and the isolation reason specified.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "output_schema": {
-        "TaegisXDR": {
-          "AssetIsolation": {
-            "id": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "id",
-          "title": "Asset ID",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "tooltip": "Specify the ID of the Asset which you want to isolate.",
-          "description": "Specify the ID of the Asset which you want to isolate."
-        },
-        {
-          "name": "reason",
-          "title": "Reason of Isolation",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "tooltip": "Specify a reason for isolation of the specified asset.",
-          "description": "Specify a reason for isolation of the specified asset."
-        }
-      ]
-    },
-    {
-      "operation": "update_alert_status",
-      "title": "Update Alert Status",
-      "annotation": "update_alert_status",
-      "description": "Adds a resolution status or modifies an existing resolution status based on the alert IDs and other input parameters specified.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "output_schema": {
-        "TaegisXDR": {
-          "AlertStatusUpdate": {
-            "reason": "",
-            "resolution_status": ""
-          }
-        }
-      },
-      "parameters": [
-        {
-          "name": "alert_ids",
-          "title": "Alert IDs",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "tooltip": "Specify the IDs of the alerts as comma-separated values whose resolution status you want to update.",
-          "description": "Specify the IDs of the alerts as comma-separated values whose resolution status you want to update."
-        },
-        {
-          "name": "resolution_status",
-          "title": "Resolution Status",
-          "type": "select",
-          "options": [
-            "Open,True Positive Benign",
-            "True Positive Malicious",
-            "False Positive",
-            "Not Actionable",
-            "Other",
-            "Suppressed"
-          ],
-          "value": "False Positive",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "tooltip": "Specify the resolution status you want to apply to specified alerts.",
-          "description": "Specify the resolution status you want to apply to specified alerts."
-        },
-        {
-          "name": "reason",
-          "title": "Reason of Status Change",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "tooltip": "Specify a reason for updating the status of specified assets.",
-          "description": "Specify a reason for updating the status of specified assets."
         }
       ]
     },
@@ -769,6 +500,622 @@
           "required": false,
           "tooltip": "Specify The ID of the user to whom this investigation is to be assigned.",
           "description": "Specify The ID of the user to whom this investigation is to be assigned."
+        }
+      ]
+    },
+    {
+      "operation": "unarchive_investigation",
+      "title": "Unarchive Investigation",
+      "annotation": "unarchive_investigation",
+      "description": "Unarchives investigation based on the investigation ID.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "output_schema": {
+        "TaegisXDR": {
+          "UnarchivedInvestigation": {
+            "id": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "investigation_id",
+          "title": "Investigation ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the ID of the investigation which you want to Unarchive.",
+          "description": "Specify the ID of the investigation which you want to Unarchive."
+        }
+      ]
+    },
+    {
+      "operation": "add_alerts_to_investigation",
+      "title": "Add Alerts to Investigation",
+      "annotation": "add_alerts_to_investigation",
+      "description": "Adds Alert to an existing investigation based on the investigation ID.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "output_schema": {
+        "TaegisXDR": {
+          "InvestigationEvidenceUpdate": {
+            "investigationId": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "investigation_id",
+          "title": "Investigation ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the ID of the investigation in which you want to add an Alert.",
+          "description": "Specify the ID of the investigation in which you want to add an Alert."
+        },
+        {
+          "name": "alerts",
+          "title": "Alert ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the ID of the Alert which is to be added.",
+          "description": "Specify the ID of the Alert which is to be added."
+        }
+      ]
+    },
+    {
+      "operation": "add_events_to_investigation",
+      "title": "Add Events to Investigation",
+      "annotation": "add_events_to_investigation",
+      "description": "Adds Events to an existing investigation based on the investigation ID.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "output_schema": {
+        "TaegisXDR": {
+          "InvestigationEvidenceUpdate": {
+            "investigationId": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "investigation_id",
+          "title": "Investigation ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the ID of the investigation in which you want to add an Event.",
+          "description": "Specify the ID of the investigation in which you want to add an Event."
+        },
+        {
+          "name": "events",
+          "title": "Event ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the ID of the Event which is to be added.",
+          "description": "Specify the ID of the Event which is to be added."
+        }
+      ]
+    },
+    {
+      "operation": "create_comment",
+      "title": "Create Comment",
+      "annotation": "create_comment",
+      "description": "Create a new comment in the activity log for investigation",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "output_schema": {
+        "TaegisXDR": {
+          "CommentCreate": {
+            "id": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "investigation_id",
+          "title": "Investigation ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the ID of the Investigation whose comment is to be added.",
+          "description": "Specify the ID of the Investigation whose comment is to be added."
+        },
+        {
+          "name": "description",
+          "title": "Comment",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify a comment for the specified investigation.",
+          "description": "Specify a comment for the specified investigation."
+        }
+      ]
+    },
+    {
+      "operation": "get_alerts",
+      "title": "Get Alerts",
+      "annotation": "get_alerts",
+      "description": "Retrieves all alerts with Common Fields of Interests based on the filter query and other input parameters specified.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "cql_query",
+          "title": "CQL Query",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "value": "FROM alert WHERE severity >= 0.6 AND status = 'OPEN' EARLIEST=-1d",
+          "tooltip": "Specify the CQL query to run when searching for alerts. By default, it queries for alerts which are in OPEN state, have severity High/Critical, and were created within 1 Day. For more information on CQL query refer to Apache CQL documentation",
+          "description": "Specify the CQL query to run when searching for alerts. By default, it queries for alerts which are in OPEN state, have severity High/Critical, and were created within 1 Day. For more information on CQL query refer to Apache CQL documentation"
+        },
+        {
+          "name": "limit",
+          "title": "Limit",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of Alerts to be shown per page.",
+          "description": "Specify the number of Alerts to be shown per page."
+        },
+        {
+          "name": "offset",
+          "title": "Offset",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "value": 0,
+          "required": false,
+          "tooltip": "Specify the number of records to skip when retrieving the result set. For example, if your query has 500 total_results and you want the last 100 results, set Offset to 400.",
+          "description": "Specify the number of records to skip when retrieving the result set. For example, if your query has 500 total_results and you want the last 100 results, set Offset to 400."
+        }
+      ],
+      "output_schema": {
+        "data": {
+          "alertsServiceSearch": {
+            "reason": "",
+            "search_id": "",
+            "status": "",
+            "alerts": {
+              "previous_offset": "",
+              "total_results": "",
+              "first_offset": "",
+              "group_by": "",
+              "last_offset": "",
+              "next_offset": "",
+              "total_parts": "",
+              "list": [],
+              "part": ""
+            }
+          }
+        }
+      }
+    },
+    {
+      "operation": "update_alert_status",
+      "title": "Update Alert Status",
+      "annotation": "update_alert_status",
+      "description": "Adds a resolution status or modifies an existing resolution status based on the alert IDs and other input parameters specified.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "output_schema": {
+        "TaegisXDR": {
+          "AlertStatusUpdate": {
+            "reason": "",
+            "resolution_status": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "alert_ids",
+          "title": "Alert IDs",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the IDs of the alerts as comma-separated values whose resolution status you want to update.",
+          "description": "Specify the IDs of the alerts as comma-separated values whose resolution status you want to update."
+        },
+        {
+          "name": "resolution_status",
+          "title": "Resolution Status",
+          "type": "select",
+          "options": [
+            "Open,True Positive Benign",
+            "True Positive Malicious",
+            "False Positive",
+            "Not Actionable",
+            "Other",
+            "Suppressed"
+          ],
+          "value": "False Positive",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the resolution status you want to apply to specified alerts.",
+          "description": "Specify the resolution status you want to apply to specified alerts."
+        },
+        {
+          "name": "reason",
+          "title": "Reason of Status Change",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify a reason for updating the status of specified assets.",
+          "description": "Specify a reason for updating the status of specified assets."
+        }
+      ]
+    },
+    {
+      "operation": "get_assets",
+      "title": "Get Assets",
+      "annotation": "get_assets",
+      "description": "Retrieves a list of assets based on the filter asset state, order, and other input parameters specified.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "output_schema": {
+        "TaegisXDR": {
+          "Assets": [
+            {
+              "id": "",
+              "ingestTime": "",
+              "createdAt": "",
+              "updatedAt": "",
+              "deletedAt": "",
+              "biosSerial": "",
+              "firstDiskSerial": "",
+              "systemVolumeSerial": "",
+              "sensorVersion": "",
+              "endpointPlatform": "",
+              "hostnames": "",
+              "architecture": "",
+              "osFamily": "",
+              "osVersion": "",
+              "osDistributor": "",
+              "osRelease": "",
+              "systemType": "",
+              "osCodename": "",
+              "kernelRelease": "",
+              "kernelVersion": "",
+              "tags": [
+                {
+                  "key": "",
+                  "tag": ""
+                }
+              ],
+              "endpointType": "",
+              "hostId": "",
+              "sensorId": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "name": "filter_asset_state",
+          "title": "Filter Asset State",
+          "type": "select",
+          "value": "All",
+          "options": [
+            "All",
+            "Deleted",
+            "Active",
+            "Unhealthy"
+          ],
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Select the asset state to filter the fetched assets. You can select from the following options:All,Deleted,Active,Unhealthy.By Default, All assets are fetched.",
+          "description": "Select the asset state to filter the fetched assets. You can select from the following options:All,Deleted,Active,Unhealthy.By Default, All assets are fetched."
+        },
+        {
+          "name": "order_by",
+          "title": "Order By",
+          "type": "select",
+          "value": "Hostname",
+          "options": [
+            "Hostname",
+            "IP Address",
+            "MAC Address",
+            "Tag",
+            "Username",
+            "OS Version",
+            "Endpoint Type",
+            "Created At",
+            "Updated At",
+            "Deleted At",
+            "OS Family",
+            "OS Distributor",
+            "Sensor Version"
+          ],
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Select the criteria by which to order the assets. You can select from the following options:Hostname,IP Address,MAC Address,Tag,Username,OS Version,Endpoint Type,Created At,Updated At,Deleted At,OS Family,OS Distributor,Sensor Version.By Default, the sorting criteria is set to Hostname.",
+          "description": "Select the criteria by which to order the assets. You can select from the following options:Hostname,IP Address,MAC Address,Tag,Username,OS Version,Endpoint Type,Created At,Updated At,Deleted At,OS Family,OS Distributor,Sensor Version.By Default, the sorting criteria is set to Hostname."
+        },
+        {
+          "name": "orderDirection",
+          "title": "Order Direction",
+          "type": "select",
+          "value": "Ascending",
+          "options": [
+            "Ascending",
+            "Descending"
+          ],
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Select the order in which the assets are listed.By Default, It retrieves the assets in Ascending order.",
+          "description": "Select the order in which the assets are listed.By Default, It retrieves the assets in Ascending order."
+        },
+        {
+          "name": "only_most_recent",
+          "title": "Only Most Recent",
+          "type": "checkbox",
+          "value": false,
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Select this option to fetch only those assets which were created within the last 24 hours.",
+          "description": "Select this option to fetch only those assets which were created within the last 24 hours."
+        },
+        {
+          "name": "limit",
+          "title": "Limit",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of Assets to be shown per page.",
+          "description": "Specify the number of Assets to be shown per page."
+        },
+        {
+          "name": "offset",
+          "title": "Offset",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "value": 0,
+          "required": false,
+          "tooltip": "Specify the offset result set requested. If your query has 500 total_results and you want the last 100; use offset:400 limit:100",
+          "description": "Specify the offset result set requested. If your query has 500 total_results and you want the last 100; use offset:400 limit:100"
+        }
+      ]
+    },
+    {
+      "operation": "isolate_assets",
+      "title": "Isolate Assets",
+      "annotation": "isolate_assets",
+      "description": "Isolates the asset based on the Asset ID and the isolation reason specified.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "output_schema": {
+        "TaegisXDR": {
+          "AssetIsolation": {
+            "id": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "title": "Asset ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the ID of the Asset which you want to isolate.",
+          "description": "Specify the ID of the Asset which you want to isolate."
+        },
+        {
+          "name": "reason",
+          "title": "Reason of Isolation",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify a reason for isolation of the specified asset.",
+          "description": "Specify a reason for isolation of the specified asset."
+        }
+      ]
+    },
+    {
+      "operation": "get_user_by_id",
+      "title": "Get User by ID",
+      "annotation": "get_user_by_id",
+      "description": "Retrieves the state of a playbook execution based on the user and tenant ID specified.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "output_schema": {
+        "TaegisXDR": {
+          "Users": [
+            {
+              "email": "",
+              "family_name": "",
+              "given_name": "",
+              "status": "",
+              "user_id": ""
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "title": "User ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the user ID whose details you want to fetch.",
+          "description": "Specify the user ID whose details you want to fetch."
+        },
+        {
+          "name": "tenant_id",
+          "title": "Tenant ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the tenant ID of which the specified user is a member.",
+          "description": "Specify the tenant ID of which the specified user is a member."
+        }
+      ]
+    },
+    {
+      "operation": "get_endpoint",
+      "title": "Get Endpoint",
+      "annotation": "get_endpoint",
+      "description": "Retrieves a RedCloak endpoint info based on the endpoint ID specified.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "output_schema": {
+        "TaegisXDR": {
+          "assetEndpointInfo": {
+            "hostId": "",
+            "hostName": "",
+            "actualIsolationStatus": "",
+            "allowedDomain": "",
+            "desiredIsolationStatus": "",
+            "firstConnectTime": "",
+            "moduleHealth": {
+              "enabled": "",
+              "lastRunningTime": "",
+              "moduleDisplayName": ""
+            },
+            "lastConnectAddress": "",
+            "lastConnectTime": "",
+            "sensorVersion": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "title": "Endpoint ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the endpoint ID for which to fetch SecureWorks RedCloak\u2122 endpoint information.",
+          "description": "Specify the endpoint ID for which to fetch SecureWorks RedCloak\u2122 endpoint information."
+        }
+      ]
+    },
+    {
+      "operation": "get_playbook_execution",
+      "title": "Get Playbook Execution",
+      "annotation": "get_investigations_alerts",
+      "description": "Retrieves the state of a playbook execution based on the playbook execution ID specified.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "output_schema": {
+        "TaegisXDR": {
+          "PlaybookExecution": {
+            "createdAt": "",
+            "executionTime": "",
+            "id": "",
+            "inputs": {
+              "alert": {
+                "message": ""
+              }
+            },
+            "instance": {
+              "name": "",
+              "playbook": {
+                "name": ""
+              }
+            },
+            "outputs": "",
+            "state": "",
+            "updatedAt": ""
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "playbookExecutionId",
+          "title": "Playbook Execution ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the playbook execution ID whose state you want to fetch.",
+          "description": "Specify the playbook execution ID whose state you want to fetch."
+        }
+      ]
+    },
+    {
+      "operation": "execute_playbook",
+      "title": "Execute Playbook",
+      "annotation": "execute_playbook",
+      "description": "Execute playbook in Taegis XDR system according to Playbook ID and supplied parameters",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "output_schema": {
+        "id": ""
+      },
+      "parameters": [
+        {
+          "name": "playbookId",
+          "title": "Playbook ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify The ID of the Playbook which is to be executed.",
+          "description": "Specify The ID of the Playbook which is to be executed."
+        },
+        {
+          "name": "parameters",
+          "title": "JSON Parameters",
+          "type": "json",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "JSON object of inputs to pass into the playbook execution.",
+          "description": "JSON object of inputs to pass into the playbook execution."
         }
       ]
     }

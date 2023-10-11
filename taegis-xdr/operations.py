@@ -9,7 +9,7 @@ from connectors.core.connector import get_logger, ConnectorError
 from connectors.core.utils import update_connnector_config
 from .taegis_xdr_api_auth import TaegisXDRAuth
 import base64, json
-from constants import *
+from .constants import *
 
 logger = get_logger("taegis-xdr")
 
@@ -27,15 +27,23 @@ class TaegisXDR:
         self.connector_info = config.pop('connector_info', '')
         self.access_token = self.auth.validate_token(config, self.connector_info)
 
-    def make_request(self, endpoint='', params=None, data=None, method='GET', headers=None, url=None, json_data=None):
+    def make_request(self, headers=None, endpoint='', params=None, data=None, method='GET', url=None, json_data=None):
         try:
             if url is None:
                 url = self.server_url + endpoint
             method_headers = {'Authorization': self.access_token, 'Content-Type': 'application/json'}
+            if headers is None:
+                headers = {}
             headers.update(method_headers)
             response = requests.request(method=method, url=url,
                                         headers=headers, data=data, json=json_data, params=params,
                                         verify=self.verify_ssl)
+
+            try:
+                from connectors.debug_utils.curl_script import make_curl
+                make_curl(method, endpoint, headers=headers, params=params, data=data, verify_ssl=self.verify_ssl)
+            except Exception as err:
+                logger.error(f"Error in curl utils: {str(err)}")
 
             if response.ok:
                 if 'json' in str(response.headers):
@@ -59,87 +67,137 @@ class TaegisXDR:
 def get_alerts(config: dict, params: dict):
     params = _build_payload(params)
     tx = TaegisXDR(config)
-    data_query = {"query": get_alerts_query.format(cql_query=params.get('cql_query'), limit=params.get('limit'),
-                                                   offset=params.get('offset'))}
-    return tx.make_request(method="POST", data=data_query)
+    data_query = {"query": get_alerts_query, "variables": {"in": params}}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
 
 
 def get_assets(config: dict, params: dict):
     params = _build_payload(params)
     tx = TaegisXDR(config)
-    data_query = {
-        "query": get_assets_query.format(offset=params.get('offset'), limit=params.get('limit'),
-                                         order_by=valid_dict.get(params.get('order_by')),
-                                         order_direction=valid_dict.get(params.get('order_direction')),
-                                         filter_asset_state=params.get('filter_asset_state'),
-                                         only_most_recent=params.get('only_most_recent'))}
-    return tx.make_request(method="POST", data=data_query)
+    data_query = {"query": get_assets_query,
+                  "variables": params}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
 
 
 def get_endpoint(config: dict, params: dict):
     params = _build_payload(params)
     tx = TaegisXDR(config)
     data_query = {
-        "query": get_endpoint_query.format(id= params.get('id'))}
-    return tx.make_request(method="POST", data=data_query)
+        "query": get_endpoint_query, "variables": params}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
 
 
 def get_investigations(config: dict, params: dict):
     params = _build_payload(params)
     tx = TaegisXDR(config)
     data_query = {
-        "query": get_investigations_query.format(page=params.get('page'),per_page=params.get('per_page'),query=params.get('query'),order_by_field=valid_dict.get(params.get('order_by_field')),order_by_direction=valid_dict.get(params.get('order_by_direction')))}
-    return tx.make_request(method="POST", data=data_query)
+        "query": get_investigations_query, "variables": params}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
 
 
 def get_investigations_alerts(config: dict, params: dict):
     params = _build_payload(params)
     tx = TaegisXDR(config)
     data_query = {
-        "query": get_investigations_alerts_query.format(page=params.get('page'),per_page=params.get('per_page'),investigation_id=params.get('investigation_id'))}
-    return tx.make_request(method="POST", data=data_query)
+        "query": get_investigations_alerts_query, "variables": params}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
 
 
 def get_playbook_execution(config: dict, params: dict):
     params = _build_payload(params)
     tx = TaegisXDR(config)
     data_query = {
-        "query": get_playbook_execution_query.format(playbookExecutionId=params.get('playbookExecutionId'))}
-    return tx.make_request(method="POST", data=data_query)
+        "query": get_playbook_execution_query, "variables": params}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
 
 
 def get_user_by_id(config: dict, params: dict):
     params = _build_payload(params)
     tx = TaegisXDR(config)
-    data_query = {"query": get_user_by_id_query.format(user_id=params.get('user_id'))}
-    return tx.make_request(method="POST", data=data_query, headers={"x-tenant-context": params.get('tenant_id')})
+    data_query = {"query": get_user_by_id_query, "variables": params}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query),
+                           headers={"x-tenant-context": params.get('tenant_id')})
 
 
 def isolate_assets(config: dict, params: dict):
     params = _build_payload(params)
     tx = TaegisXDR(config)
-    data_query = {
-        "query": isolate_assets_query.format(id=params.get('id'),reason=params.get('reason'))}
-    return tx.make_request(method="POST", data=data_query)
+    data_query = {"query": isolate_assets_query, "variables": params}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
 
 
 def update_alert_status(config: dict, params: dict):
     params = _build_payload(params)
     tx = TaegisXDR(config)
-    data_query = {"query": update_alert_status_query.format(alert_ids=params.get('alert_ids'),resolution_status=valid_dict.get(params.get('resolution_status')), reason=params.get('reason'))}
-    return tx.make_request(method="POST", data=data_query)
+    data_query = {"query": update_alert_status_query, "variables": {"in": params}}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
 
 
 def update_investigation(config: dict, params: dict):
     params = _build_payload(params)
     tx = TaegisXDR(config)
     data_query = {
-        "query": update_investigation_query.format(investigation_id=params.get('investigation_id'),description=params.get('description'),key_findings=params.get('key_findings'),priority=params.get('priority'), status={params.get('status')}, assignee_id=params.get('assignee_id'))}
-    return tx.make_request(method="POST", data=data_query)
+        "query": update_investigation_query,
+        "variables": {"investigation_id": params.pop('investigation_id'), "investigation": params}}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
+
+
+def unarchive_investigation(config: dict, params: dict):
+    params = _build_payload(params)
+    tx = TaegisXDR(config)
+    data_query = {
+        "query": unarchive_investigation_query,
+        "variables": params}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
+
+
+def add_alerts_to_investigation(config: dict, params: dict):
+    params = _build_payload(params)
+    tx = TaegisXDR(config)
+    data_query = {
+        "query": add_alerts_to_investigation_query,
+        "variables": params}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
+
+
+def add_events_to_investigation(config: dict, params: dict):
+    params = _build_payload(params)
+    tx = TaegisXDR(config)
+    data_query = {
+        "query": add_events_to_investigation_query,
+        "variables": params}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
+
+
+def create_investigation(config: dict, params: dict):
+    params = _build_payload(params)
+    tx = TaegisXDR(config)
+    data_query = {
+        "query": create_investigation_query,
+        "variables": {"investigation": params}}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
+
+
+def execute_playbook(config: dict, params: dict):
+    params = _build_payload(params)
+    tx = TaegisXDR(config)
+    data_query = {
+        "query": execute_playbook_query,
+        "variables": params}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
+
+
+def create_comment(config: dict, params: dict):
+    params = _build_payload(params)
+    tx = TaegisXDR(config)
+    data_query = {
+        "query": create_comment_query,
+        "variables": {"investigation_id": params.pop('investigation_id'), "activityLog": params}}
+    return tx.make_request(endpoint="/graphql", method="POST", data=json.dumps(data_query))
 
 
 def _build_payload(params):
-    return {key: val for key, val in params.items() if val is not None and val != ''}
+    return {key: valid_dict.get(val, val) for key, val in params.items() if val is not None and val != ''}
 
 
 operations = {
@@ -152,5 +210,11 @@ operations = {
     "get_user_by_id": get_user_by_id,
     "isolate_assets": isolate_assets,
     "update_alert_status": update_alert_status,
-    "update_investigation": update_investigation
+    "update_investigation": update_investigation,
+    "unarchive_investigation": unarchive_investigation,
+    "add_alerts_to_investigation": add_alerts_to_investigation,
+    "add_events_to_investigation": add_events_to_investigation,
+    "create_investigation": create_investigation,
+    "execute_playbook": execute_playbook,
+    "create_comment": create_comment
 }

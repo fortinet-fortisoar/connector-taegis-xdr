@@ -2,10 +2,10 @@
   "type": "workflow_collections",
   "data": [
     {
-      "uuid": "0383987c-a26d-426f-83b4-37489ee65391",
+      "uuid": "7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
       "@type": "WorkflowCollection",
-      "name": "Sample - Taegis XDR - 1.0.0",
-      "description": "Secureworks Taegis\u2122 XDR offers superior detection, unmatched response and an open platform built from the ground up to integrate market-leading technologies and deliver the highest ROI.",
+      "name": "Sample - Taegis XDR - 1.1.0",
+      "description": "SecureWorks Taegis\u2122 XDR offers superior detection, unmatched response and an open platform built from the ground up to integrate market-leading technologies and deliver the highest ROI.",
       "visible": true,
       "image": null,
       "recordTags": [
@@ -15,11 +15,11 @@
       "workflows": [
         {
           "@type": "Workflow",
-          "uuid": "8c47a972-1bc4-44f7-b013-7ca63e68d6fa",
-          "collection": "/api/3/workflow_collections/0383987c-a26d-426f-83b4-37489ee65391",
+          "uuid": "364b1659-035d-4c0f-bf83-51fd27b66624",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
           "triggerLimit": null,
-          "description": "Retrieves all the Alerts for a given Query and returns a Common Fields of Interests",
-          "name": "Get Alerts",
+          "description": "Creates investigation fields based on the descriptions of investigations and other input parameters specified.",
+          "name": "Create Investigation",
           "tag": "#Taegis XDR",
           "recordTags": [
             "Taegis",
@@ -30,17 +30,17 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/106aec39-6de4-44bf-8ca3-bac7fa89f95c",
+          "triggerStep": "/api/3/workflow_steps/e37c7208-1d3e-4c62-95c8-5ad7885b4d6b",
           "steps": [
             {
-              "uuid": "106aec39-6de4-44bf-8ca3-bac7fa89f95c",
+              "uuid": "e37c7208-1d3e-4c62-95c8-5ad7885b4d6b",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "57a84efb-f45d-493b-a67d-4b69aa93bd36",
-                "title": "Taegis XDR: Get Alerts",
+                "route": "a37b6b01-becb-463d-95de-ece93c6eec16",
+                "title": "Taegis XDR: Create Investigation",
                 "resources": [
                   "alerts"
                 ],
@@ -59,23 +59,22 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "bf9ea757-a144-4652-a8d9-abc704460bf5",
+              "uuid": "88fcafcf-0dcc-4aba-92f2-7d654ea8e0cb",
               "@type": "WorkflowStep",
-              "name": "Get Alerts",
+              "name": "Create Investigation",
               "description": null,
               "status": null,
               "arguments": {
                 "name": "Taegis XDR",
                 "config": "''",
                 "params": {
-                  "cql_query": "FROM alert WHERE severity >= 0.6 AND status = 'OPEN' EARLIEST=-1d",
-                  "limit": "10",
-                  "offset": "0"
+                  "priority": 3,
+                  "status": "Open"
                 },
-                "version": "1.0.0",
+                "version": "1.1.0",
                 "connector": "taegis-xdr",
-                "operation": "get_alerts",
-                "operationTitle": "Get Alerts",
+                "operation": "create_investigation",
+                "operationTitle": "Create Investigation",
                 "step_variables": {
                   "output_data": "{{vars.result}}"
                 }
@@ -88,188 +87,21 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "fd96eaeb-c6aa-4a3d-82fa-74b4c623c4e3",
+              "uuid": "c7c7124a-8654-48bf-994e-5316220bcd01",
               "label": null,
               "isExecuted": false,
-              "name": "Start-> Get Alerts",
-              "sourceStep": "/api/3/workflow_steps/106aec39-6de4-44bf-8ca3-bac7fa89f95c",
-              "targetStep": "/api/3/workflow_steps/bf9ea757-a144-4652-a8d9-abc704460bf5"
+              "name": "Start-> Create Investigation",
+              "sourceStep": "/api/3/workflow_steps/e37c7208-1d3e-4c62-95c8-5ad7885b4d6b",
+              "targetStep": "/api/3/workflow_steps/88fcafcf-0dcc-4aba-92f2-7d654ea8e0cb"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "0942bdff-59e9-4e5d-b6a6-32ef599a437f",
-          "collection": "/api/3/workflow_collections/0383987c-a26d-426f-83b4-37489ee65391",
+          "uuid": "34140f4b-3470-4384-a51d-accddb1c117d",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
           "triggerLimit": null,
-          "description": "Get a list of assets according to the specified parameters.",
-          "name": "Get Assets",
-          "tag": "#Taegis XDR",
-          "recordTags": [
-            "Taegis",
-            "taegis-xdr"
-          ],
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "parameters": [],
-          "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/2f85a1b7-2087-4b62-85c3-5c7c309ba747",
-          "steps": [
-            {
-              "uuid": "2f85a1b7-2087-4b62-85c3-5c7c309ba747",
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "status": null,
-              "arguments": {
-                "route": "48187112-f919-4494-b5a3-1430c507a0f7",
-                "title": "Taegis XDR: Get Assets",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records[0]}}"
-                  }
-                },
-                "singleRecordExecution": false,
-                "noRecordExecution": true,
-                "executeButtonText": "Execute"
-              },
-              "left": "20",
-              "top": "20",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
-            },
-            {
-              "uuid": "38849a42-a608-493d-b468-7894030ea35a",
-              "@type": "WorkflowStep",
-              "name": "Get Assets",
-              "description": null,
-              "status": null,
-              "arguments": {
-                "name": "Taegis XDR",
-                "config": "''",
-                "params": {
-                  "limit": "10",
-                  "offset": "0",
-                  "order_by": "hostname",
-                  "order_direction": "asc",
-                  "filter_asset_state": "All",
-                  "only_most_recent": false
-                },
-                "version": "1.0.0",
-                "connector": "taegis-xdr",
-                "operation": "get_assets",
-                "operationTitle": "Get Assets",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
-              },
-              "left": "188",
-              "top": "120",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "uuid": "531cdae4-5e5c-414e-ac16-9650dc8ea8df",
-              "label": null,
-              "isExecuted": false,
-              "name": "Start-> Get Assets",
-              "sourceStep": "/api/3/workflow_steps/2f85a1b7-2087-4b62-85c3-5c7c309ba747",
-              "targetStep": "/api/3/workflow_steps/38849a42-a608-493d-b468-7894030ea35a"
-            }
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "uuid": "254c2104-5ec4-451c-b6ea-fc34d260c7de",
-          "collection": "/api/3/workflow_collections/0383987c-a26d-426f-83b4-37489ee65391",
-          "triggerLimit": null,
-          "description": "Get a RedCloak endpoint info by endpoint ID.",
-          "name": "Get Endpoint",
-          "tag": "#Taegis XDR",
-          "recordTags": [
-            "Taegis",
-            "taegis-xdr"
-          ],
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "parameters": [],
-          "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/b5053687-91da-44e6-9e96-935ee1daaaf4",
-          "steps": [
-            {
-              "uuid": "b5053687-91da-44e6-9e96-935ee1daaaf4",
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "status": null,
-              "arguments": {
-                "route": "329a8179-8467-427d-8868-2ec01b7da3bf",
-                "title": "Taegis XDR: Get Endpoint",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records[0]}}"
-                  }
-                },
-                "singleRecordExecution": false,
-                "noRecordExecution": true,
-                "executeButtonText": "Execute"
-              },
-              "left": "20",
-              "top": "20",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
-            },
-            {
-              "uuid": "c2cf8821-002d-44f4-bb82-299b5165590a",
-              "@type": "WorkflowStep",
-              "name": "Get Endpoint",
-              "description": null,
-              "status": null,
-              "arguments": {
-                "name": "Taegis XDR",
-                "config": "''",
-                "params": [],
-                "version": "1.0.0",
-                "connector": "taegis-xdr",
-                "operation": "get_endpoint",
-                "operationTitle": "Get Endpoint",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
-              },
-              "left": "188",
-              "top": "120",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "uuid": "e3c0f257-fb77-4c00-b2c1-16fb58221ae6",
-              "label": null,
-              "isExecuted": false,
-              "name": "Start-> Get Endpoint",
-              "sourceStep": "/api/3/workflow_steps/b5053687-91da-44e6-9e96-935ee1daaaf4",
-              "targetStep": "/api/3/workflow_steps/c2cf8821-002d-44f4-bb82-299b5165590a"
-            }
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "uuid": "4919231c-0a99-4e9d-b0d0-8029d96a7f1f",
-          "collection": "/api/3/workflow_collections/0383987c-a26d-426f-83b4-37489ee65391",
-          "triggerLimit": null,
-          "description": "Get a list of investgations search according to the specified parameters and cql query.",
+          "description": "Retrieves a list of investigations filter asset state, CQL Query, and other input parameters specified.",
           "name": "Get Investigations",
           "tag": "#Taegis XDR",
           "recordTags": [
@@ -281,16 +113,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/5ffcef9a-e2b5-4e02-a917-60879e780ee3",
+          "triggerStep": "/api/3/workflow_steps/35b060aa-b3d4-46cc-a08e-36aacce218f5",
           "steps": [
             {
-              "uuid": "5ffcef9a-e2b5-4e02-a917-60879e780ee3",
+              "uuid": "35b060aa-b3d4-46cc-a08e-36aacce218f5",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "5d463f1b-faae-4a16-ae66-f39dc693a8af",
+                "route": "b3e640e6-2b57-4789-ba70-31aa7a2ce339",
                 "title": "Taegis XDR: Get Investigations",
                 "resources": [
                   "alerts"
@@ -310,7 +142,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "269460ed-c106-4691-a87f-e181e06e3e36",
+              "uuid": "d6565b2a-e37c-4bf0-b271-51a9f473e6e9",
               "@type": "WorkflowStep",
               "name": "Get Investigations",
               "description": null,
@@ -319,14 +151,11 @@
                 "name": "Taegis XDR",
                 "config": "''",
                 "params": {
-                  "page": "1",
-                  "per_page": "3",
-                  "order_by_field": "id",
-                  "order_direction": "asc",
-                  "filter_asset_state": "All",
-                  "query": "type in ('Security Investigation')"
+                  "orderDirection": "Ascending",
+                  "page": 1,
+                  "perPage": 10
                 },
-                "version": "1.0.0",
+                "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "get_investigations",
                 "operationTitle": "Get Investigations",
@@ -342,21 +171,21 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "b4bf47de-bdd8-44fb-aed8-387000f1a206",
+              "uuid": "ebb2131f-cf8f-4e7a-b205-8a8eec127090",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Investigations",
-              "sourceStep": "/api/3/workflow_steps/5ffcef9a-e2b5-4e02-a917-60879e780ee3",
-              "targetStep": "/api/3/workflow_steps/269460ed-c106-4691-a87f-e181e06e3e36"
+              "sourceStep": "/api/3/workflow_steps/35b060aa-b3d4-46cc-a08e-36aacce218f5",
+              "targetStep": "/api/3/workflow_steps/d6565b2a-e37c-4bf0-b271-51a9f473e6e9"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "aa4ad65a-480c-4e8c-afbf-45707ae024fd",
-          "collection": "/api/3/workflow_collections/0383987c-a26d-426f-83b4-37489ee65391",
+          "uuid": "cbfec8b0-50ba-480a-8577-847c664a6a47",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
           "triggerLimit": null,
-          "description": "Get a list of Alerts associated with an investgation according to the specified investigation ID.",
+          "description": "Retrieves a list of alerts associated with an investigation based on the investigation ID and other input parameters specified.",
           "name": "Get Investigations Alerts",
           "tag": "#Taegis XDR",
           "recordTags": [
@@ -368,16 +197,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/1ae387a1-c708-4cb1-8946-c4713b3236f8",
+          "triggerStep": "/api/3/workflow_steps/533c7489-57ff-49d8-8712-228cb1dcb753",
           "steps": [
             {
-              "uuid": "1ae387a1-c708-4cb1-8946-c4713b3236f8",
+              "uuid": "533c7489-57ff-49d8-8712-228cb1dcb753",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "103f8c3e-e592-4b0e-84b2-50ccef5c10e8",
+                "route": "4773f172-18d1-4126-a26b-bb4b4d585f20",
                 "title": "Taegis XDR: Get Investigations Alerts",
                 "resources": [
                   "alerts"
@@ -397,7 +226,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "2aa469f8-c8ea-4225-9eb0-151a0e52c5f9",
+              "uuid": "146133d4-cb9c-4999-9147-aaee55163e33",
               "@type": "WorkflowStep",
               "name": "Get Investigations Alerts",
               "description": null,
@@ -406,10 +235,10 @@
                 "name": "Taegis XDR",
                 "config": "''",
                 "params": {
-                  "page": "1",
-                  "per_page": "10"
+                  "page": 1,
+                  "perPage": 10
                 },
-                "version": "1.0.0",
+                "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "get_investigations_alerts",
                 "operationTitle": "Get Investigations Alerts",
@@ -425,343 +254,21 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "e96169a9-cddf-430c-8116-97a21ac3e5be",
+              "uuid": "0bb37ebf-12bb-448c-b2ad-a5afbc63a682",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Get Investigations Alerts",
-              "sourceStep": "/api/3/workflow_steps/1ae387a1-c708-4cb1-8946-c4713b3236f8",
-              "targetStep": "/api/3/workflow_steps/2aa469f8-c8ea-4225-9eb0-151a0e52c5f9"
+              "sourceStep": "/api/3/workflow_steps/533c7489-57ff-49d8-8712-228cb1dcb753",
+              "targetStep": "/api/3/workflow_steps/146133d4-cb9c-4999-9147-aaee55163e33"
             }
           ]
         },
         {
           "@type": "Workflow",
-          "uuid": "9909b754-ed50-4bb8-9197-7058ce335ee8",
-          "collection": "/api/3/workflow_collections/0383987c-a26d-426f-83b4-37489ee65391",
+          "uuid": "fc75bfe0-b7a8-4658-85ca-47a8750c5331",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
           "triggerLimit": null,
-          "description": "Gets the state of a playbook execution by a playbook execution ID",
-          "name": "Get Playbook Execution",
-          "tag": "#Taegis XDR",
-          "recordTags": [
-            "Taegis",
-            "taegis-xdr"
-          ],
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "parameters": [],
-          "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/9c994b8f-26df-4e06-adf5-d847cff6a3af",
-          "steps": [
-            {
-              "uuid": "9c994b8f-26df-4e06-adf5-d847cff6a3af",
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "status": null,
-              "arguments": {
-                "route": "b70f41a5-db06-4c23-b77d-655f51d717bd",
-                "title": "Taegis XDR: Get Playbook Execution",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records[0]}}"
-                  }
-                },
-                "singleRecordExecution": false,
-                "noRecordExecution": true,
-                "executeButtonText": "Execute"
-              },
-              "left": "20",
-              "top": "20",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
-            },
-            {
-              "uuid": "fe037c7d-a422-46ca-a5dd-e9b58705fe6d",
-              "@type": "WorkflowStep",
-              "name": "Get Playbook Execution",
-              "description": null,
-              "status": null,
-              "arguments": {
-                "name": "Taegis XDR",
-                "config": "''",
-                "params": [],
-                "version": "1.0.0",
-                "connector": "taegis-xdr",
-                "operation": "get_playbook_execution",
-                "operationTitle": "Get Playbook Execution",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
-              },
-              "left": "188",
-              "top": "120",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "uuid": "be4649d8-79bb-4304-8c1f-d785cff530af",
-              "label": null,
-              "isExecuted": false,
-              "name": "Start-> Get Playbook Execution",
-              "sourceStep": "/api/3/workflow_steps/9c994b8f-26df-4e06-adf5-d847cff6a3af",
-              "targetStep": "/api/3/workflow_steps/fe037c7d-a422-46ca-a5dd-e9b58705fe6d"
-            }
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "uuid": "a72ebc6a-3cac-4b13-98ae-b86c9fab49b0",
-          "collection": "/api/3/workflow_collections/0383987c-a26d-426f-83b4-37489ee65391",
-          "triggerLimit": null,
-          "description": "Gets the state of a playbook execution by a playbook execution ID",
-          "name": "Get User by ID",
-          "tag": "#Taegis XDR",
-          "recordTags": [
-            "Taegis",
-            "taegis-xdr"
-          ],
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "parameters": [],
-          "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/dc5693c8-b2a9-40d7-91e0-823a392764ad",
-          "steps": [
-            {
-              "uuid": "dc5693c8-b2a9-40d7-91e0-823a392764ad",
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "status": null,
-              "arguments": {
-                "route": "151df9f7-23dd-4766-9d70-4bc07c721b4a",
-                "title": "Taegis XDR: Get User by ID",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records[0]}}"
-                  }
-                },
-                "singleRecordExecution": false,
-                "noRecordExecution": true,
-                "executeButtonText": "Execute"
-              },
-              "left": "20",
-              "top": "20",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
-            },
-            {
-              "uuid": "e873741c-16e8-4288-a57d-f75a44775881",
-              "@type": "WorkflowStep",
-              "name": "Get User by ID",
-              "description": null,
-              "status": null,
-              "arguments": {
-                "name": "Taegis XDR",
-                "config": "''",
-                "params": [],
-                "version": "1.0.0",
-                "connector": "taegis-xdr",
-                "operation": "get_user_by_id",
-                "operationTitle": "Get User by ID",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
-              },
-              "left": "188",
-              "top": "120",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "uuid": "690c834a-9438-4391-b9ff-af79b8c211ad",
-              "label": null,
-              "isExecuted": false,
-              "name": "Start-> Get User by ID",
-              "sourceStep": "/api/3/workflow_steps/dc5693c8-b2a9-40d7-91e0-823a392764ad",
-              "targetStep": "/api/3/workflow_steps/e873741c-16e8-4288-a57d-f75a44775881"
-            }
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "uuid": "b91692d9-1b7a-4e22-9e0a-f945db27d5e1",
-          "collection": "/api/3/workflow_collections/0383987c-a26d-426f-83b4-37489ee65391",
-          "triggerLimit": null,
-          "description": "Isolates the asset by an Asset ID and the reason to be isolated",
-          "name": "Isolate Assets",
-          "tag": "#Taegis XDR",
-          "recordTags": [
-            "Taegis",
-            "taegis-xdr"
-          ],
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "parameters": [],
-          "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/7a6ab43b-b779-4443-9b00-7d86bffa8c33",
-          "steps": [
-            {
-              "uuid": "7a6ab43b-b779-4443-9b00-7d86bffa8c33",
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "status": null,
-              "arguments": {
-                "route": "c4ffa1a1-200d-4f5b-aa21-9bc66cfeec15",
-                "title": "Taegis XDR: Isolate Assets",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records[0]}}"
-                  }
-                },
-                "singleRecordExecution": false,
-                "noRecordExecution": true,
-                "executeButtonText": "Execute"
-              },
-              "left": "20",
-              "top": "20",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
-            },
-            {
-              "uuid": "8488f59e-74af-4108-b7c6-f45596cfd472",
-              "@type": "WorkflowStep",
-              "name": "Isolate Assets",
-              "description": null,
-              "status": null,
-              "arguments": {
-                "name": "Taegis XDR",
-                "config": "''",
-                "params": [],
-                "version": "1.0.0",
-                "connector": "taegis-xdr",
-                "operation": "isolate_assets",
-                "operationTitle": "Isolate Assets",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
-              },
-              "left": "188",
-              "top": "120",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "uuid": "ae752f9f-eecb-42e7-99f9-64134c52f62a",
-              "label": null,
-              "isExecuted": false,
-              "name": "Start-> Isolate Assets",
-              "sourceStep": "/api/3/workflow_steps/7a6ab43b-b779-4443-9b00-7d86bffa8c33",
-              "targetStep": "/api/3/workflow_steps/8488f59e-74af-4108-b7c6-f45596cfd472"
-            }
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "uuid": "1f47e4b3-cc55-4432-bfe7-622e95e706c2",
-          "collection": "/api/3/workflow_collections/0383987c-a26d-426f-83b4-37489ee65391",
-          "triggerLimit": null,
-          "description": "Add a resolution status or modify an existing resolution status for a give list of alert IDs.",
-          "name": "Update Alert Status",
-          "tag": "#Taegis XDR",
-          "recordTags": [
-            "Taegis",
-            "taegis-xdr"
-          ],
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "parameters": [],
-          "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/3e8c95fa-3fef-4c3b-ac88-ee04ee47fe0c",
-          "steps": [
-            {
-              "uuid": "3e8c95fa-3fef-4c3b-ac88-ee04ee47fe0c",
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "status": null,
-              "arguments": {
-                "route": "af17fc33-cca0-4b4a-84b0-06c82b9c8c4b",
-                "title": "Taegis XDR: Update Alert Status",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "records": "{{vars.input.records[0]}}"
-                  }
-                },
-                "singleRecordExecution": false,
-                "noRecordExecution": true,
-                "executeButtonText": "Execute"
-              },
-              "left": "20",
-              "top": "20",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
-            },
-            {
-              "uuid": "afe6da31-d74c-45cd-9449-c357e8dd6903",
-              "@type": "WorkflowStep",
-              "name": "Update Alert Status",
-              "description": null,
-              "status": null,
-              "arguments": {
-                "name": "Taegis XDR",
-                "config": "''",
-                "params": {
-                  "resolution_status": "FALSE_POSITIVE"
-                },
-                "version": "1.0.0",
-                "connector": "taegis-xdr",
-                "operation": "update_alert_status",
-                "operationTitle": "Update Alert Status",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
-              },
-              "left": "188",
-              "top": "120",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "uuid": "e8f2b570-291a-454f-b017-5f27c1e7cf08",
-              "label": null,
-              "isExecuted": false,
-              "name": "Start-> Update Alert Status",
-              "sourceStep": "/api/3/workflow_steps/3e8c95fa-3fef-4c3b-ac88-ee04ee47fe0c",
-              "targetStep": "/api/3/workflow_steps/afe6da31-d74c-45cd-9449-c357e8dd6903"
-            }
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "uuid": "fd356fcf-01e7-4cfe-8c4b-07f2ceca394e",
-          "collection": "/api/3/workflow_collections/0383987c-a26d-426f-83b4-37489ee65391",
-          "triggerLimit": null,
-          "description": "Update an investigation fields based on investigation ID and parameters provided.",
+          "description": "Updates investigation fields based on the investigation ID and other input parameters specified.",
           "name": "Update Investigation",
           "tag": "#Taegis XDR",
           "recordTags": [
@@ -773,16 +280,16 @@
           "singleRecordExecution": false,
           "parameters": [],
           "synchronous": false,
-          "triggerStep": "/api/3/workflow_steps/d740fe7b-69cf-4b0f-bab1-13bd2c8936d0",
+          "triggerStep": "/api/3/workflow_steps/eca56395-f4d1-4255-967e-68ec0a33761a",
           "steps": [
             {
-              "uuid": "d740fe7b-69cf-4b0f-bab1-13bd2c8936d0",
+              "uuid": "eca56395-f4d1-4255-967e-68ec0a33761a",
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "status": null,
               "arguments": {
-                "route": "4ddf146f-6502-4f5a-bf7e-fb4274647724",
+                "route": "06d46e0a-b4dd-4f68-8b00-26b7b42e94ce",
                 "title": "Taegis XDR: Update Investigation",
                 "resources": [
                   "alerts"
@@ -802,7 +309,7 @@
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
             },
             {
-              "uuid": "bd9c2366-1bf5-4e6b-b3c4-e38379ea4aa2",
+              "uuid": "f13f6b87-1b4b-498f-91b4-e493c6732d1f",
               "@type": "WorkflowStep",
               "name": "Update Investigation",
               "description": null,
@@ -813,7 +320,7 @@
                 "params": {
                   "status": "Active"
                 },
-                "version": "1.0.0",
+                "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "update_investigation",
                 "operationTitle": "Update Investigation",
@@ -829,12 +336,985 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "uuid": "8179055f-c3ba-45fb-aec5-f406e5bdb9da",
+              "uuid": "7c9dbf35-a7d3-4bc1-851c-52471be97232",
               "label": null,
               "isExecuted": false,
               "name": "Start-> Update Investigation",
-              "sourceStep": "/api/3/workflow_steps/d740fe7b-69cf-4b0f-bab1-13bd2c8936d0",
-              "targetStep": "/api/3/workflow_steps/bd9c2366-1bf5-4e6b-b3c4-e38379ea4aa2"
+              "sourceStep": "/api/3/workflow_steps/eca56395-f4d1-4255-967e-68ec0a33761a",
+              "targetStep": "/api/3/workflow_steps/f13f6b87-1b4b-498f-91b4-e493c6732d1f"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "8fab5ec7-08d4-4ef7-81a7-60987a0eb6f0",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
+          "triggerLimit": null,
+          "description": "Unarchives investigation based on the investigation ID.",
+          "name": "Unarchive Investigation",
+          "tag": "#Taegis XDR",
+          "recordTags": [
+            "Taegis",
+            "taegis-xdr"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/7195e4c1-de41-43fb-9bde-36b2eb418da2",
+          "steps": [
+            {
+              "uuid": "7195e4c1-de41-43fb-9bde-36b2eb418da2",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "0f4e25f7-bdc8-4422-bde2-6830e27daab6",
+                "title": "Taegis XDR: Unarchive Investigation",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "4ae7a027-0031-4e2f-8267-97325213c89e",
+              "@type": "WorkflowStep",
+              "name": "Unarchive Investigation",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Taegis XDR",
+                "config": "''",
+                "params": [],
+                "version": "1.1.0",
+                "connector": "taegis-xdr",
+                "operation": "unarchive_investigation",
+                "operationTitle": "Unarchive Investigation",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "e125c2af-b7ec-4656-a73f-ef68cf95552f",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Unarchive Investigation",
+              "sourceStep": "/api/3/workflow_steps/7195e4c1-de41-43fb-9bde-36b2eb418da2",
+              "targetStep": "/api/3/workflow_steps/4ae7a027-0031-4e2f-8267-97325213c89e"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "1f3b2bfb-678f-45cc-99b1-df2f1fc12df1",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
+          "triggerLimit": null,
+          "description": "Adds Alert to an existing investigation based on the investigation ID.",
+          "name": "Add Alerts to Investigation",
+          "tag": "#Taegis XDR",
+          "recordTags": [
+            "Taegis",
+            "taegis-xdr"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/ee944e2c-85a0-463d-9454-95fe629559c7",
+          "steps": [
+            {
+              "uuid": "ee944e2c-85a0-463d-9454-95fe629559c7",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "21e9044c-d76c-47e7-b264-b236c1d7f37c",
+                "title": "Taegis XDR: Add Alerts to Investigation",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "b0005f3d-0ed5-41cb-adc7-c605c4ec2e30",
+              "@type": "WorkflowStep",
+              "name": "Add Alerts to Investigation",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Taegis XDR",
+                "config": "''",
+                "params": [],
+                "version": "1.1.0",
+                "connector": "taegis-xdr",
+                "operation": "add_alerts_to_investigation",
+                "operationTitle": "Add Alerts to Investigation",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "13ae11ae-7112-47b0-ba2f-2afca40c72b3",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Add Alerts to Investigation",
+              "sourceStep": "/api/3/workflow_steps/ee944e2c-85a0-463d-9454-95fe629559c7",
+              "targetStep": "/api/3/workflow_steps/b0005f3d-0ed5-41cb-adc7-c605c4ec2e30"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "dd6eb64d-0845-4c31-b6bc-b19321108bf1",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
+          "triggerLimit": null,
+          "description": "Adds Events to an existing investigation based on the investigation ID.",
+          "name": "Add Events to Investigation",
+          "tag": "#Taegis XDR",
+          "recordTags": [
+            "Taegis",
+            "taegis-xdr"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/d4206688-7c6b-4cea-aa9d-1037097f4eef",
+          "steps": [
+            {
+              "uuid": "d4206688-7c6b-4cea-aa9d-1037097f4eef",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "60927fa5-2b54-4e33-b27b-0a3685d4815f",
+                "title": "Taegis XDR: Add Events to Investigation",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "9667df0f-149a-4b98-be9d-b90508460053",
+              "@type": "WorkflowStep",
+              "name": "Add Events to Investigation",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Taegis XDR",
+                "config": "''",
+                "params": [],
+                "version": "1.1.0",
+                "connector": "taegis-xdr",
+                "operation": "add_events_to_investigation",
+                "operationTitle": "Add Events to Investigation",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "5edbefe7-c874-4b47-8dda-a1c9bfdcc84d",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Add Events to Investigation",
+              "sourceStep": "/api/3/workflow_steps/d4206688-7c6b-4cea-aa9d-1037097f4eef",
+              "targetStep": "/api/3/workflow_steps/9667df0f-149a-4b98-be9d-b90508460053"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "b7810065-e588-4cb3-bf39-98e67708f342",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
+          "triggerLimit": null,
+          "description": "Create a new comment in the activity log for investigation",
+          "name": "Create Comment",
+          "tag": "#Taegis XDR",
+          "recordTags": [
+            "Taegis",
+            "taegis-xdr"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/c704d2fb-eb64-49f1-b8fb-e42748348b18",
+          "steps": [
+            {
+              "uuid": "c704d2fb-eb64-49f1-b8fb-e42748348b18",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "53ca1519-849a-4fe9-9b73-a15a94295fda",
+                "title": "Taegis XDR: Create Comment",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "b4563748-3b1c-41ef-96d6-a3d2d1c645ca",
+              "@type": "WorkflowStep",
+              "name": "Create Comment",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Taegis XDR",
+                "config": "''",
+                "params": [],
+                "version": "1.1.0",
+                "connector": "taegis-xdr",
+                "operation": "create_comment",
+                "operationTitle": "Create Comment",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "a04a6def-e744-4bf6-8abb-623aae01c599",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Create Comment",
+              "sourceStep": "/api/3/workflow_steps/c704d2fb-eb64-49f1-b8fb-e42748348b18",
+              "targetStep": "/api/3/workflow_steps/b4563748-3b1c-41ef-96d6-a3d2d1c645ca"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "110521be-8822-4676-a46f-298fd5c580fb",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
+          "triggerLimit": null,
+          "description": "Retrieves all alerts with Common Fields of Interests based on the filter query and other input parameters specified.",
+          "name": "Get Alerts",
+          "tag": "#Taegis XDR",
+          "recordTags": [
+            "Taegis",
+            "taegis-xdr"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/3eeb0140-b5d9-408d-ae27-eab442deccdb",
+          "steps": [
+            {
+              "uuid": "3eeb0140-b5d9-408d-ae27-eab442deccdb",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "f7b69bef-59eb-4174-a574-447b51d73e1f",
+                "title": "Taegis XDR: Get Alerts",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "abb867fd-ca90-466b-86ca-d93838760a65",
+              "@type": "WorkflowStep",
+              "name": "Get Alerts",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Taegis XDR",
+                "config": "''",
+                "params": {
+                  "cql_query": "FROM alert WHERE severity >= 0.6 AND status = 'OPEN' EARLIEST=-1d",
+                  "limit": 10,
+                  "offset": 0
+                },
+                "version": "1.1.0",
+                "connector": "taegis-xdr",
+                "operation": "get_alerts",
+                "operationTitle": "Get Alerts",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "0d794e2d-90f8-493f-8001-3ab56031c10f",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Alerts",
+              "sourceStep": "/api/3/workflow_steps/3eeb0140-b5d9-408d-ae27-eab442deccdb",
+              "targetStep": "/api/3/workflow_steps/abb867fd-ca90-466b-86ca-d93838760a65"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "089a67af-0fb9-4c60-a138-3db9334709f3",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
+          "triggerLimit": null,
+          "description": "Adds a resolution status or modifies an existing resolution status based on the alert IDs and other input parameters specified.",
+          "name": "Update Alert Status",
+          "tag": "#Taegis XDR",
+          "recordTags": [
+            "Taegis",
+            "taegis-xdr"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/335716fb-9e62-4381-bf18-0b02f99b4b8e",
+          "steps": [
+            {
+              "uuid": "335716fb-9e62-4381-bf18-0b02f99b4b8e",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "109d2386-c127-4b1e-91bf-b24fe718a4f9",
+                "title": "Taegis XDR: Update Alert Status",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "b22db49e-19c6-4d45-86a9-efdb7765bcb9",
+              "@type": "WorkflowStep",
+              "name": "Update Alert Status",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Taegis XDR",
+                "config": "''",
+                "params": {
+                  "resolution_status": "False Positive"
+                },
+                "version": "1.1.0",
+                "connector": "taegis-xdr",
+                "operation": "update_alert_status",
+                "operationTitle": "Update Alert Status",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "95ff6f79-f6ff-4e0a-89df-9b8b59d5de74",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Update Alert Status",
+              "sourceStep": "/api/3/workflow_steps/335716fb-9e62-4381-bf18-0b02f99b4b8e",
+              "targetStep": "/api/3/workflow_steps/b22db49e-19c6-4d45-86a9-efdb7765bcb9"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "526b4a65-a389-4c62-a092-96f22e76df54",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
+          "triggerLimit": null,
+          "description": "Retrieves a list of assets based on the filter asset state, order, and other input parameters specified.",
+          "name": "Get Assets",
+          "tag": "#Taegis XDR",
+          "recordTags": [
+            "Taegis",
+            "taegis-xdr"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/e6bb2421-8ab4-424f-a9fd-3ab63e3dd216",
+          "steps": [
+            {
+              "uuid": "e6bb2421-8ab4-424f-a9fd-3ab63e3dd216",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "3a3aee22-d267-406a-8e39-8e97bc858b26",
+                "title": "Taegis XDR: Get Assets",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "82ba7e67-043d-4414-a8dc-e9119ff10108",
+              "@type": "WorkflowStep",
+              "name": "Get Assets",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Taegis XDR",
+                "config": "''",
+                "params": {
+                  "filter_asset_state": "All",
+                  "order_by": "Hostname",
+                  "orderDirection": "Ascending",
+                  "only_most_recent": false,
+                  "limit": 10,
+                  "offset": 0
+                },
+                "version": "1.1.0",
+                "connector": "taegis-xdr",
+                "operation": "get_assets",
+                "operationTitle": "Get Assets",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "e7abaa73-4159-493b-9394-97d3d8b537b9",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Assets",
+              "sourceStep": "/api/3/workflow_steps/e6bb2421-8ab4-424f-a9fd-3ab63e3dd216",
+              "targetStep": "/api/3/workflow_steps/82ba7e67-043d-4414-a8dc-e9119ff10108"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "0bac8b65-efb8-4a55-bf04-46963256d901",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
+          "triggerLimit": null,
+          "description": "Isolates the asset based on the Asset ID and the isolation reason specified.",
+          "name": "Isolate Assets",
+          "tag": "#Taegis XDR",
+          "recordTags": [
+            "Taegis",
+            "taegis-xdr"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/2d1ec5ad-1b40-478b-b94d-555c385d67c1",
+          "steps": [
+            {
+              "uuid": "2d1ec5ad-1b40-478b-b94d-555c385d67c1",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "51bb48c8-83c1-4779-a493-69cbf90bebff",
+                "title": "Taegis XDR: Isolate Assets",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "8851a287-4bbc-409e-8ac9-8977c352108d",
+              "@type": "WorkflowStep",
+              "name": "Isolate Assets",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Taegis XDR",
+                "config": "''",
+                "params": [],
+                "version": "1.1.0",
+                "connector": "taegis-xdr",
+                "operation": "isolate_assets",
+                "operationTitle": "Isolate Assets",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "330f4cce-2224-483a-bf1b-b765c44e3b5c",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Isolate Assets",
+              "sourceStep": "/api/3/workflow_steps/2d1ec5ad-1b40-478b-b94d-555c385d67c1",
+              "targetStep": "/api/3/workflow_steps/8851a287-4bbc-409e-8ac9-8977c352108d"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "dd88e0eb-df2f-424b-b78a-24b9a4dd77f0",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
+          "triggerLimit": null,
+          "description": "Retrieves the state of a playbook execution based on the user and tenant ID specified.",
+          "name": "Get User by ID",
+          "tag": "#Taegis XDR",
+          "recordTags": [
+            "Taegis",
+            "taegis-xdr"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/0910475e-9dd5-443f-b185-5ec3bf6c8ca1",
+          "steps": [
+            {
+              "uuid": "0910475e-9dd5-443f-b185-5ec3bf6c8ca1",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "5ebf6c6a-11d5-4c0d-9517-10bd9cb4e870",
+                "title": "Taegis XDR: Get User by ID",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "e37d40ea-b364-464c-a298-3f8ce17a8ee3",
+              "@type": "WorkflowStep",
+              "name": "Get User by ID",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Taegis XDR",
+                "config": "''",
+                "params": [],
+                "version": "1.1.0",
+                "connector": "taegis-xdr",
+                "operation": "get_user_by_id",
+                "operationTitle": "Get User by ID",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "1d51d7ec-47cf-425a-9084-461fe92e58be",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get User by ID",
+              "sourceStep": "/api/3/workflow_steps/0910475e-9dd5-443f-b185-5ec3bf6c8ca1",
+              "targetStep": "/api/3/workflow_steps/e37d40ea-b364-464c-a298-3f8ce17a8ee3"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "4b5c2181-f7e0-4008-8bcf-aa9f86605118",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
+          "triggerLimit": null,
+          "description": "Retrieves a RedCloak endpoint info based on the endpoint ID specified.",
+          "name": "Get Endpoint",
+          "tag": "#Taegis XDR",
+          "recordTags": [
+            "Taegis",
+            "taegis-xdr"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/3ad34fdf-d70a-49b3-9795-bd4ac505183e",
+          "steps": [
+            {
+              "uuid": "3ad34fdf-d70a-49b3-9795-bd4ac505183e",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "d9375207-753f-4027-9cbb-91e3f43c4aee",
+                "title": "Taegis XDR: Get Endpoint",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "4bb179ab-3bfe-4d5d-94bc-e085e8b2eca9",
+              "@type": "WorkflowStep",
+              "name": "Get Endpoint",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Taegis XDR",
+                "config": "''",
+                "params": [],
+                "version": "1.1.0",
+                "connector": "taegis-xdr",
+                "operation": "get_endpoint",
+                "operationTitle": "Get Endpoint",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "257aba79-9abd-4b5e-9311-8572ae5347d9",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Endpoint",
+              "sourceStep": "/api/3/workflow_steps/3ad34fdf-d70a-49b3-9795-bd4ac505183e",
+              "targetStep": "/api/3/workflow_steps/4bb179ab-3bfe-4d5d-94bc-e085e8b2eca9"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "ec3aa61a-da4f-42ab-bc22-fcd68faaf209",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
+          "triggerLimit": null,
+          "description": "Retrieves the state of a playbook execution based on the playbook execution ID specified.",
+          "name": "Get Playbook Execution",
+          "tag": "#Taegis XDR",
+          "recordTags": [
+            "Taegis",
+            "taegis-xdr"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/951c33b8-c6c3-4d9a-8b75-9b23908933ef",
+          "steps": [
+            {
+              "uuid": "951c33b8-c6c3-4d9a-8b75-9b23908933ef",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "7976df63-f290-41e8-a7a5-79acc7a61055",
+                "title": "Taegis XDR: Get Playbook Execution",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "afc171b1-9ae5-4a45-8994-4735c2127b92",
+              "@type": "WorkflowStep",
+              "name": "Get Playbook Execution",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Taegis XDR",
+                "config": "''",
+                "params": [],
+                "version": "1.1.0",
+                "connector": "taegis-xdr",
+                "operation": "get_playbook_execution",
+                "operationTitle": "Get Playbook Execution",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "d480b471-f55f-4233-a029-6c086641a068",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Playbook Execution",
+              "sourceStep": "/api/3/workflow_steps/951c33b8-c6c3-4d9a-8b75-9b23908933ef",
+              "targetStep": "/api/3/workflow_steps/afc171b1-9ae5-4a45-8994-4735c2127b92"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "ef8d23f9-9d6b-456c-954f-10b28bb3387f",
+          "collection": "/api/3/workflow_collections/7c1d0712-4d2c-4859-b7e8-5acdef9796fc",
+          "triggerLimit": null,
+          "description": "Execute playbook in Taegis XDR system according to Playbook ID and supplied parameters",
+          "name": "Execute Playbook",
+          "tag": "#Taegis XDR",
+          "recordTags": [
+            "Taegis",
+            "taegis-xdr"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/4b7e2296-3cef-4d2a-8e16-98b49a0dd4f0",
+          "steps": [
+            {
+              "uuid": "4b7e2296-3cef-4d2a-8e16-98b49a0dd4f0",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "863a6dfa-f79b-4076-bb34-3473d73ef629",
+                "title": "Taegis XDR: Execute Playbook",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "45a7077b-54d6-4fac-8ca5-9e06e5bc36b8",
+              "@type": "WorkflowStep",
+              "name": "Execute Playbook",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Taegis XDR",
+                "config": "''",
+                "params": [],
+                "version": "1.1.0",
+                "connector": "taegis-xdr",
+                "operation": "execute_playbook",
+                "operationTitle": "Execute Playbook",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "2bbe07a5-2fb9-4327-9ee0-932ef006d670",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Execute Playbook",
+              "sourceStep": "/api/3/workflow_steps/4b7e2296-3cef-4d2a-8e16-98b49a0dd4f0",
+              "targetStep": "/api/3/workflow_steps/45a7077b-54d6-4fac-8ca5-9e06e5bc36b8"
             }
           ]
         }
