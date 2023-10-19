@@ -74,10 +74,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "create_investigation",
-                "operationTitle": "Create Investigation",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Create Investigation"
               },
               "left": "188",
               "top": "120",
@@ -158,10 +155,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "get_investigations",
-                "operationTitle": "Get Investigations",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Get Investigations"
               },
               "left": "188",
               "top": "120",
@@ -241,10 +235,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "get_investigations_alerts",
-                "operationTitle": "Get Investigations Alerts",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Get Investigations Alerts"
               },
               "left": "188",
               "top": "120",
@@ -323,10 +314,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "update_investigation",
-                "operationTitle": "Update Investigation",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Update Investigation"
               },
               "left": "188",
               "top": "120",
@@ -403,10 +391,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "unarchive_investigation",
-                "operationTitle": "Unarchive Investigation",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Unarchive Investigation"
               },
               "left": "188",
               "top": "120",
@@ -483,10 +468,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "add_alerts_to_investigation",
-                "operationTitle": "Add Alerts to Investigation",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Add Alerts to Investigation"
               },
               "left": "188",
               "top": "120",
@@ -563,10 +545,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "add_events_to_investigation",
-                "operationTitle": "Add Events to Investigation",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Add Events to Investigation"
               },
               "left": "188",
               "top": "120",
@@ -643,10 +622,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "create_comment",
-                "operationTitle": "Create Comment",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Create Comment"
               },
               "left": "188",
               "top": "120",
@@ -727,10 +703,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "get_alerts",
-                "operationTitle": "Get Alerts",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Get Alerts"
               },
               "left": "188",
               "top": "120",
@@ -809,10 +782,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "update_alert_status",
-                "operationTitle": "Update Alert Status",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Update Alert Status"
               },
               "left": "188",
               "top": "120",
@@ -896,10 +866,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "get_assets",
-                "operationTitle": "Get Assets",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Get Assets"
               },
               "left": "188",
               "top": "120",
@@ -976,10 +943,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "isolate_assets",
-                "operationTitle": "Isolate Assets",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Isolate Assets"
               },
               "left": "188",
               "top": "120",
@@ -1056,10 +1020,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "get_user_by_id",
-                "operationTitle": "Get User by ID",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Get User by ID"
               },
               "left": "188",
               "top": "120",
@@ -1136,10 +1097,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "get_endpoint",
-                "operationTitle": "Get Endpoint",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Get Endpoint"
               },
               "left": "188",
               "top": "120",
@@ -1216,10 +1174,7 @@
                 "version": "1.1.0",
                 "connector": "taegis-xdr",
                 "operation": "get_playbook_execution",
-                "operationTitle": "Get Playbook Execution",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
+                "operationTitle": "Get Playbook Execution"
               },
               "left": "188",
               "top": "120",

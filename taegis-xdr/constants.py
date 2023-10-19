@@ -117,7 +117,6 @@ update_investigation_query = """mutation updateInvestigation($investigation_id: 
     }
 """
 
-
 unarchive_investigation_query = """mutation unArchiveInvestigation($investigation_id: ID!)
     {
         unArchiveInvestigation(investigation_id: $investigation_id)

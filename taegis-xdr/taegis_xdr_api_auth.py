@@ -9,7 +9,7 @@ from time import time, ctime
 from datetime import datetime
 from connectors.core.connector import get_logger, ConnectorError
 from connectors.core.utils import update_connnector_config
-import json,base64,requests
+import json, base64, requests
 from .constants import server_url_dict
 
 logger = get_logger('taegis-xdr')
@@ -38,8 +38,10 @@ class TaegisXDRAuth:
             'Authorization': f'Basic {credentials_base64}'
         }
         response = requests.request("POST", url, headers=headers, data=payload)
+        if response.ok:
+            return response.json()
 
-        return response.json()
+        raise ConnectorError("Wrong Credentials")
 
     def convert_ts_epoch(self, ts):
         datetime_object = datetime.strptime(ts, "%Y-%m-%dT%H:%M:%S.%fZ")
@@ -74,14 +76,11 @@ class TaegisXDRAuth:
 def check(config):
     try:
         txa = TaegisXDRAuth(config)
-        if not 'access_token' in config:
-            token_resp = txa.generate_token(config)
-            config['access_token'] = token_resp.get('access_token')
-            config['expiry'] = token_resp.get('expiry')
-            update_connnector_config(config['connector_info']['connector_name'],
-                                     config['connector_info']['connector_version'], config,
-                                     config['config_id'])
+        token_resp = txa.generate_token(config)
+        config['access_token'] = token_resp.get('access_token')
+        config['expiry'] = token_resp.get('expiry')
+        update_connnector_config(config['connector_info']['connector_name'],
+                                 config['connector_info']['connector_version'], config,
+                                 config['config_id'])
     except Exception as err:
         raise ConnectorError(str(err))
-
-
