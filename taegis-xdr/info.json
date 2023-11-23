@@ -9,7 +9,7 @@
   "category": "Threat Detection",
   "icon_small_name": "small.png",
   "icon_large_name": "large.png",
-  "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.0/taegis-xdr/683/taegis-xdr-v1-0-0",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.1.0/taegis-xdr/732/taegis-xdr-v1-1-0",
   "configuration": {
     "fields": [
       {
@@ -85,8 +85,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify a description for the specified investigation.",
-          "description": "Specify a description for the specified investigation."
+          "tooltip": "Specify a description to add to the investigation being created.",
+          "description": "Specify a description to add to the investigation being created."
         },
         {
           "name": "key_findings",
@@ -95,8 +95,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the key findings for the specified investigation.",
-          "description": "Specify the key findings for the specified investigation."
+          "tooltip": "Specify the key findings to add to the investigation being created.",
+          "description": "Specify the key findings to add to the investigation being created."
         },
         {
           "name": "priority",
@@ -140,8 +140,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify The ID of the user to whom this investigation is to be assigned.",
-          "description": "Specify The ID of the user to whom this investigation is to be assigned."
+          "tooltip": "Specify The ID of the user to assign the investigation being created.",
+          "description": "Specify The ID of the user to assign the investigation being created."
         },
         {
           "name": "alerts",
@@ -150,8 +150,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the ID of the Alert which is to be added.",
-          "description": "Specify the ID of the Alert which is to be added."
+          "tooltip": "Specify the ID of the alert to add to the investigation being created.",
+          "description": "Specify the ID of the alert to add to the investigation being created."
         }
       ]
     },
@@ -507,7 +507,7 @@
       "operation": "unarchive_investigation",
       "title": "Unarchive Investigation",
       "annotation": "unarchive_investigation",
-      "description": "Unarchives investigation based on the investigation ID.",
+      "description": "Unarchives investigation based on the investigation ID specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -527,8 +527,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the ID of the investigation which you want to Unarchive.",
-          "description": "Specify the ID of the investigation which you want to Unarchive."
+          "tooltip": "Specify the ID of the investigation which you want to unarchive.",
+          "description": "Specify the ID of the investigation which you want to unarchive."
         }
       ]
     },
@@ -556,8 +556,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the ID of the investigation in which you want to add an Alert.",
-          "description": "Specify the ID of the investigation in which you want to add an Alert."
+          "tooltip": "Specify the ID of the investigation to which to add the specified alert.",
+          "description": "Specify the ID of the investigation to which to add the specified alert."
         },
         {
           "name": "alerts",
@@ -566,8 +566,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the ID of the Alert which is to be added.",
-          "description": "Specify the ID of the Alert which is to be added."
+          "tooltip": "Specify the ID of the alert to add to this investigation.",
+          "description": "Specify the ID of the alert to add to this investigation."
         }
       ]
     },
@@ -595,8 +595,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the ID of the investigation in which you want to add an Event.",
-          "description": "Specify the ID of the investigation in which you want to add an Event."
+          "tooltip": "Specify the ID of the investigation to which to add the specified event.",
+          "description": "Specify the ID of the investigation to which to add the specified event."
         },
         {
           "name": "events",
@@ -605,8 +605,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the ID of the Event which is to be added.",
-          "description": "Specify the ID of the Event which is to be added."
+          "tooltip": "Specify the ID of the event to add to this investigation.",
+          "description": "Specify the ID of the event to add to this investigation."
         }
       ]
     },
@@ -614,7 +614,7 @@
       "operation": "create_comment",
       "title": "Create Comment",
       "annotation": "create_comment",
-      "description": "Create a new comment in the activity log for investigation",
+      "description": "Create a new comment in the activity log for investigation.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -634,8 +634,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the ID of the Investigation whose comment is to be added.",
-          "description": "Specify the ID of the Investigation whose comment is to be added."
+          "tooltip": "Specify the ID of the investigation in which the specified comment is to be added.",
+          "description": "Specify the ID of the investigation in which the specified comment is to be added."
         },
         {
           "name": "description",
@@ -644,8 +644,8 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify a comment for the specified investigation.",
-          "description": "Specify a comment for the specified investigation."
+          "tooltip": "Specify a comment to add to this investigation.",
+          "description": "Specify a comment to add to this investigation."
         }
       ]
     },
@@ -1088,7 +1088,7 @@
       "operation": "execute_playbook",
       "title": "Execute Playbook",
       "annotation": "execute_playbook",
-      "description": "Execute playbook in Taegis XDR system according to Playbook ID and supplied parameters",
+      "description": "Execute playbook in Taegis XDR system according to Playbook ID and supplied parameters.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -1104,8 +1104,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify The ID of the Playbook which is to be executed.",
-          "description": "Specify The ID of the Playbook which is to be executed."
+          "tooltip": "Specify the ID of the playbook to be executed.",
+          "description": "Specify the ID of the playbook to be executed."
         },
         {
           "name": "parameters",
@@ -1114,8 +1114,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "JSON object of inputs to pass into the playbook execution.",
-          "description": "JSON object of inputs to pass into the playbook execution."
+          "tooltip": "Specify the inputs, as a JSON object, to pass for the playbook execution.",
+          "description": "Specify the inputs, as a JSON object, to pass for the playbook execution."
         }
       ]
     }

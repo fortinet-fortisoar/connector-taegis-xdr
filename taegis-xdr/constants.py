@@ -1,8 +1,9 @@
-""" Copyright start
-Copyright (C) 2008 - 2023 Fortinet Inc.
-All rights reserved.
-FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
-Copyright end """
+"""
+Copyright start
+MIT License
+Copyright (c) 2023 Fortinet Inc
+Copyright end
+"""
 
 valid_dict = {"Ascending": "asc", "Descending": "desc", "Hostname": "hostname", "IP Address": "ip_address",
               "MAC Address": "mac_address", "Tag": "tag", "Username": "username", "OS Version": "os_version",

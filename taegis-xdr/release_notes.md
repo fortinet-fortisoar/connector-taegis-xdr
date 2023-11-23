@@ -1,8 +1,10 @@
 #### What's Improved
 
-- Fixed Check health function to take server url according to environment provided.
-- Added Unarchive investigation action.
-- Added Add Evidence to Investigation action.
-- Added Create Comment action.
-- Added Create Investigation action. 
-- Added Execute playbook action.
+- Added following actions and playbooks:
+  - Unarchive Investigation 
+  - Add Alerts to Investigation 
+  - Add Events to Investigation 
+  - Create Comment 
+  - Create Investigation 
+  - Execute Playbook
+- Fixed the Health Check feature to accept server URL as per the provided environment. 
